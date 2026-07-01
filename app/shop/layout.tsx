@@ -1,11 +1,3 @@
-import Navbar from "@/components/navBar";
-import { ReactNode } from "react";
+import DashboardThemeProvider from "@/components/dashboard/DashboardThemeProvider";
 
-export default function Layout({ children }: { children: ReactNode }) {
-  return (
-    <>
-      <Navbar />
-      {children}
-    </>
-  );
-}
+export default function ShopLayout({ children }: { children: React.ReactNode }) { return <DashboardThemeProvider>{children}</DashboardThemeProvider>; }

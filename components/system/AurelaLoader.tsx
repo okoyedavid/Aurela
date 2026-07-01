@@ -1,0 +1,3 @@
+export default function AurelaLoader({ label = "Preparing your Aurela experience" }: { label?: string }) {
+  return <div className="grid min-h-[65vh] place-items-center bg-background px-6 text-foreground"><div className="text-center"><div className="relative mx-auto h-16 w-16"><span className="absolute inset-0 rounded-full border border-border" /><span className="absolute inset-0 animate-spin rounded-full border border-transparent border-t-foreground" /><span className="absolute inset-3 grid place-items-center text-xl font-semibold">A</span></div><p className="mt-6 text-xs uppercase tracking-[.26em] text-muted-foreground">{label}</p></div></div>;
+}

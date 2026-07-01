@@ -1,178 +1,33 @@
 "use client";
-import FashionCard from "@/components/FashionCard";
+
+import { selectAllProducts } from "@/features/products/productsSlice";
+import { RootState } from "@/store/store";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function Subcategories({ category }: { category: string }) {
-  const subcategories = getSubcategories(category);
+  const pathname = usePathname();
+  const products = useSelector((state: RootState) => selectAllProducts(state));
+  const items = Array.from(new Set(products.filter(product => product.category === category).map(product => product.subcategory))).map(name => {
+    const matching = products.filter(product => product.category === category && product.subcategory === name);
+    return { name, count: matching.length, image: matching[0]?.image };
+  });
 
-  if (subcategories.length < 1) return null;
+  if (!items.length) return null;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-xl md:text-3xl font-semibold mb-6">
-        Shop by Category
-      </h2>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {subcategories.map((subcategory, index) => (
-          <FashionCard
-            key={index}
-            title={subcategory.name}
-            subtitle={String(subcategory.count)}
-            image={subcategory.image}
-          />
+    <section className="mx-auto max-w-7xl px-3 py-8 sm:px-5 lg:px-6 lg:py-12">
+      <div className="mb-6 flex items-end justify-between"><div><p className="text-xs uppercase tracking-[.24em] text-muted-foreground">Refine the collection</p><h2 className="mt-2 text-2xl font-semibold tracking-[-.03em] sm:text-3xl">Shop by category</h2></div><Link href={pathname} className="text-sm text-muted-foreground underline underline-offset-4">View all</Link></div>
+      <div className="-mx-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-3 pb-3 sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 lg:grid-cols-4">
+        {items.map(item => (
+          <Link key={item.name} href={`${pathname}?subcategory=${encodeURIComponent(item.name)}`} className="group w-[72vw] max-w-[280px] shrink-0 snap-start sm:w-auto sm:max-w-none">
+            <div className="relative aspect-[3/4] overflow-hidden rounded-[1.5rem] bg-muted"><Image fill src={item.image} alt={`${item.name} collection`} sizes="(max-width:640px) 72vw, 25vw" className="object-cover transition duration-700 group-hover:scale-[1.03]" /></div>
+            <div className="mt-3 flex items-center justify-between px-1"><h3 className="font-medium">{item.name}</h3><span className="text-xs text-muted-foreground">{item.count} pieces</span></div>
+          </Link>
         ))}
       </div>
-    </div>
+    </section>
   );
-}
-
-// Helper function to generate subcategories
-function getSubcategories(categoryName: string) {
-  const subcategoryMap: Record<
-    string,
-    Array<{
-      name: string;
-      count: number;
-      image: string;
-    }>
-  > = {
-    "Women's Clothing": [
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Dresses",
-        count: 15,
-      },
-      {
-        image: "/products/weddingredDress.jpeg",
-        name: "Tops",
-        count: 12,
-      },
-      {
-        image: "/products/model.jpeg",
-        name: "Bottoms",
-        count: 8,
-      },
-      {
-        image: "/products/accessories.jpeg",
-        name: "Outerwear",
-        count: 6,
-      },
-    ],
-
-    "Men's Clothing": [
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Shirts",
-        count: 12,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Pants",
-        count: 10,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Outerwear",
-        count: 8,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Suits",
-        count: 3,
-      },
-    ],
-
-    Shoes: [
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Sneakers",
-        count: 10,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Boots",
-        count: 8,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Sandals",
-        count: 5,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Formal",
-        count: 4,
-      },
-    ],
-
-    Accessories: [
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Watches",
-        count: 8,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Sunglasses",
-        count: 6,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Belts",
-        count: 4,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Hats",
-        count: 4,
-      },
-    ],
-
-    Bags: [
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Handbags",
-        count: 8,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Backpacks",
-        count: 5,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Wallets",
-        count: 3,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Travel",
-        count: 2,
-      },
-    ],
-
-    Jewelry: [
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Necklaces",
-        count: 5,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Earrings",
-        count: 4,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Rings",
-        count: 3,
-      },
-      {
-        image: "/products/squattingmodel.jpeg",
-        name: "Bracelets",
-        count: 3,
-      },
-    ],
-  };
-
-  return subcategoryMap[categoryName] || [];
 }

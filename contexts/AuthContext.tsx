@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, AuthUser, LoginCredentials, RegisterData } from '@/types/user';
 import { toast } from '@/hooks/use-toast';
@@ -37,7 +39,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       try {
         const authData: AuthUser = JSON.parse(storedAuth);
         setUser(authData.user);
-      } catch (error) {
+      } catch {
         localStorage.removeItem('auth');
       }
     }

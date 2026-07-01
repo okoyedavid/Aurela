@@ -47,14 +47,14 @@ export default function ProductVariantPicker({
     <div className={`space-y-6 ${className}`}>
       {Object.entries(variantGroups).map(([type, typeVariants]) => (
         <div key={type} className="space-y-3">
-          <Label className="text-sm font-medium">
+          <div className="flex items-center justify-between"><Label className="text-sm font-medium">
             {getVariantDisplayName(type)}
             {selectedVariants[type] && (
               <span className="ml-2 font-normal text-muted-foreground">
                 - {selectedVariants[type]}
               </span>
             )}
-          </Label>
+          </Label>{type === "size" && <button type="button" className="text-xs text-muted-foreground underline underline-offset-4">Size guide</button>}</div>
 
           {type === "color" ? (
             <div className="flex flex-wrap gap-2">
@@ -64,10 +64,11 @@ export default function ProductVariantPicker({
                   type="button"
                   onClick={() => handleVariantSelect(type, variant.value)}
                   disabled={!variant.available}
-                  className={`w-8 h-8 rounded-full border-2 transition-all ${
+                  aria-label={`${variant.value}${!variant.available ? " (out of stock)" : ""}`}
+                  className={`h-11 w-11 rounded-full border-2 transition-all ${
                     selectedVariants[type] === variant.value
                       ? "border-primary ring-2 ring-primary/20"
-                      : "border-gray-300 hover:border-gray-400"
+                      : "border-border hover:border-foreground/40"
                   } ${
                     !variant.available
                       ? "cursor-not-allowed opacity-50"
@@ -102,7 +103,7 @@ export default function ProductVariantPicker({
                   size="sm"
                   onClick={() => handleVariantSelect(type, variant.value)}
                   disabled={!variant.available}
-                  className={!variant.available ? "opacity-50" : ""}
+                  className={`h-11 min-w-12 rounded-full ${!variant.available ? "opacity-50" : ""}`}
                 >
                   {variant.value}
                   {!variant.available && (

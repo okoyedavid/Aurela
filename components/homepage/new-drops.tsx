@@ -7,15 +7,13 @@ export default function NewDrops() {
   const products = useSelector((state: RootState) => selectHotDrops(state, 8));
 
   return (
-    <div className="py-12 max-w-7xl mx-auto px-6">
-      <h1 className="font-extrabold mb-4 md:mb-8 text-xl sm:text-2xl md:text-4xl lg:text-5xl">
-        Latest Drops
-      </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-12 gap-x-6 mb-12">
+    <section className="mx-auto max-w-7xl px-3 py-14 sm:px-5 lg:px-6 lg:py-20">
+      <div className="mb-8"><p className="text-xs uppercase tracking-[.26em] text-muted-foreground">Just arrived</p><h2 className="mt-3 text-3xl font-semibold tracking-[-.04em] sm:text-5xl">Latest drops</h2></div>
+      <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 lg:grid-cols-4 lg:gap-y-12">
         {products.map((product) => (
           <ProductCard id={product.id} key={product.id} />
         ))}
       </div>
-    </div>
+    </section>
   );
 }

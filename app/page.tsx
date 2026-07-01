@@ -7,6 +7,7 @@ import Recommendations from "@/components/homepage/recommendations";
 import SalesBanner from "@/components/homepage/SalesBanner";
 import Navbar from "@/components/navBar";
 import Footer from "@/components/navigation/Footer";
+import ReelsTeaser from "@/components/homepage/ReelsTeaser";
 
 const Page = () => {
   return (
@@ -14,6 +15,7 @@ const Page = () => {
       <Navbar />
       <Hero />
       <NewDrops />
+      <ReelsTeaser />
       <SalesBanner />
       <Recommendations />
       <Categories />

@@ -42,23 +42,23 @@ export const CartItem: React.FC<CartItemProps> = ({
       })
     );
   return (
-    <div className={`flex items-start space-x-4 py-4 ${className}`}>
-      <div className="shrink-0 relative h-20 w-20">
+    <div className={`flex items-start gap-4 py-6 sm:gap-6 ${className}`}>
+      <div className="relative h-28 w-24 shrink-0 overflow-hidden rounded-2xl bg-[#e9e3d9] sm:h-36 sm:w-28">
         <Image
           fill
           src={item.image}
           alt={item.name}
-          className="h-20 w-20 rounded-md object-cover"
+          className="object-cover"
         />
       </div>
 
       <div className="flex-1 min-w-0">
-        <h3 className="text-sm font-medium text-gray-900 truncate">
+        <h3 className="truncate text-base font-medium text-[#171717] sm:text-lg">
           {item.name}
         </h3>
 
         {item.variant && (
-          <div className="mt-1 text-sm text-gray-500">
+          <div className="mt-1 text-sm capitalize text-[#827a70]">
             {Object.entries(item.variant)
               .filter(([_, value]) => value)
               .map(([key, value]) => `${key}: ${value}`)
@@ -67,7 +67,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         )}
 
         <div className="mt-2 flex items-center space-x-3">
-          <div className="flex items-center border rounded-md">
+          <div className="flex items-center rounded-full border border-[#d9d1c5] bg-white">
             <Button
               variant="ghost"
               size="icon"
@@ -100,7 +100,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 text-red-500 hover:text-red-700"
+            className="h-8 w-8 text-[#81796f] hover:bg-[#eee9df] hover:text-black"
             onClick={() => onRemove(item.id)}
           >
             <X className="h-4 w-4" />
@@ -114,8 +114,8 @@ export const CartItem: React.FC<CartItemProps> = ({
         )}
       </div>
 
-      <div className="text-right">
-        <p className="text-sm font-medium text-gray-900">
+      <div className="ml-auto text-right">
+        <p className="font-medium text-[#171717]">
           ${(item.price * item.quantity).toFixed(2)}
         </p>
         <p className="text-xs text-gray-500">${item.price.toFixed(2)} each</p>

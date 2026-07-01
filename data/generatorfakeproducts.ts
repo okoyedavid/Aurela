@@ -7,10 +7,25 @@ const randomRating = () => Math.round((Math.random() * 2 + 3) * 10) / 10; // 3.0
 const randomReviews = () => Math.floor(Math.random() * 200) + 1;
 const randomStock = () => Math.floor(Math.random() * 50) + 1;
 
+// Stable public sample clips used only by the first ten demo products.
+const demoVideos = [
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4",
+  "https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+];
+
 // Base templates for generating variations
 export const categories = [
   "Women's Clothing",
   "Men's Clothing",
+  "Kids' Clothing",
   "Shoes",
   "Accessories",
   "Bags",
@@ -38,6 +53,7 @@ export const subcategories = {
     "T-Shirts",
     "Hoodies",
   ],
+  "Kids' Clothing": ["Tops", "Bottoms", "Outerwear", "Sets"],
   Shoes: ["Sneakers", "Boots", "Sandals", "Loafers", "Heels", "Flats"],
   Accessories: ["Watches", "Belts", "Sunglasses", "Hats", "Scarves", "Gloves"],
   Bags: [
@@ -199,6 +215,7 @@ const unsplashImages = [
 
 export function generateProducts(count: number): ProductProps[] {
   const products: ProductProps[] = [];
+  const generatedAt = Date.now();
 
   for (let i = 1; i <= count; i++) {
     const category = randomItem(categories);
@@ -274,11 +291,19 @@ export function generateProducts(count: number): ProductProps[] {
       id: i.toString(),
       name: `${adjective} ${productType}`,
       image: mainImage,
+      video: demoVideos[i - 1],
       description: `High-quality ${productType.toLowerCase()} from ${brand}. Perfect for ${
         tags[0]
       } occasions. Crafted with attention to detail and premium materials for lasting comfort and style.`,
       price,
       originalPrice,
+      onSale: hasDiscount && originalPrice !== undefined && originalPrice > price,
+      // Capped exponential spacing gives recent products dense timestamps, then
+      // gradually spreads older fixtures without overflowing JavaScript dates.
+      createdAt: new Date(
+        generatedAt -
+          (2 ** Math.min(i - 1, 12) + Math.max(0, i - 13) * 60) * 60_000,
+      ).toISOString(),
       images: productImages,
       category,
       subcategory,

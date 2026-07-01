@@ -8,11 +8,24 @@ import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
 
 interface ProductReviewsProps {
-  reviews: any[];
+  reviews: ProductReview[];
   averageRating: number;
   totalReviews: number;
   onHelpfulClick?: (reviewId: string) => void;
   className?: string;
+}
+
+interface ProductReview {
+  id: string;
+  productId: string;
+  userName: string;
+  userAvatar: string;
+  rating: number;
+  title?: string;
+  comment: string;
+  date: string;
+  helpful: number;
+  verified: boolean;
 }
 
 export default function ProductReviews({

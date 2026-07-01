@@ -36,6 +36,7 @@ export default function ProductSearch({
 
       {value && (
         <Button
+          type="button"
           variant="ghost"
           size="icon"
           className="absolute right-1 top-1/2 transform -translate-y-1/2 h-6 w-6"

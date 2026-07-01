@@ -16,7 +16,7 @@ const inter = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Auvé",
+  title: "Aurela",
   description: "Where Simplicity Meets Sophistication.",
 };
 

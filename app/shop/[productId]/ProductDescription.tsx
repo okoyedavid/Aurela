@@ -1,280 +1,62 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import ProductVariantPicker, { buildCartLineId, getRequiredVariantTypes } from "@/components/products/ProductVariantPicker";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
-import {
-  Heart,
-  RefreshCw,
-  Share2,
-  Shield,
-  ShoppingCart,
-  Star,
-  Truck,
-} from "lucide-react";
-import { ProductPage } from "@/types/products";
-import { useState } from "react";
-import { getBadgeVariant } from "@/lib/utils";
-import { toast } from "sonner";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addItem,
-  decreaseItemCount,
-  increaseItemCount,
-  selectCartItemById,
-} from "@/features/Cart/cartSlice";
+import { addItem, selectCartItemById } from "@/features/Cart/cartSlice";
+import { selectIsWishlisted, wishlistToggled } from "@/features/Wishlist/wishlistSlice";
 import { RootState } from "@/store/store";
-import {
-  buildCartLineId,
-  getRequiredVariantTypes,
-} from "@/components/products/ProductVariantPicker";
-import ProductVariantPicker from "@/components/products/ProductVariantPicker";
+import { ProductPage } from "@/types/products";
+import { Heart, Share2, ShoppingBag, Star } from "lucide-react";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "sonner";
+
 export default function ProductDescription({ product }: ProductPage) {
-  const [selectedVariants, setSelectedVariants] = useState<
-    Record<string, string>
-  >({});
-  const [isWishlisted, setIsWishlisted] = useState(false);
-  const requiredVariants = getRequiredVariantTypes(product.variants);
-  const hasVariantSelection =
-    requiredVariants.length === 0 ||
-    requiredVariants.every((type) => selectedVariants[type]);
-  // Changed: PDP quantity controls now target the exact cart line for the selected variant.
-  const selectedCartLineId = hasVariantSelection
-    ? buildCartLineId(product.id, selectedVariants)
-    : null;
-
-  const renderStars = (rating: number) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`w-4 h-4 ${
-          i < Math.floor(rating)
-            ? "text-yellow-400 fill-current"
-            : "text-gray-300"
-        }`}
-      />
-    ));
-  };
-
-  const cartValues = useSelector((state: RootState) =>
-    selectedCartLineId ? selectCartItemById(state, selectedCartLineId) : null,
-  );
+  const [selectedVariants, setSelectedVariants] = useState<Record<string, string>>({});
+  const [showSelectionError, setShowSelectionError] = useState(false);
   const dispatch = useDispatch();
+  const isWishlisted = useSelector((state: RootState) => selectIsWishlisted(state, product.id));
+  const required = getRequiredVariantTypes(product.variants);
+  const missing = required.filter(type => !selectedVariants[type]);
+  const lineId = missing.length ? null : buildCartLineId(product.id, selectedVariants);
+  const cartLine = useSelector((state: RootState) => lineId ? selectCartItemById(state, lineId) : undefined);
 
-  const decrement = () => {
-    if (!selectedCartLineId) return;
-
-    dispatch(
-      decreaseItemCount({
-        id: selectedCartLineId,
-      }),
-    );
-  };
-  const increment = () => {
-    if (!selectedCartLineId) return;
-
-    dispatch(
-      increaseItemCount({
-        id: selectedCartLineId,
-      }),
-    );
-  };
-
-  const handleAddToCart = () => {
-    // Changed: the PDP and quick-add now enforce the same option-selection rules.
-    const missingVariants = requiredVariants.filter(
-      (type) => !selectedVariants[type],
-    );
-
-    if (missingVariants.length > 0) {
-      toast.warning("Please select all options", {
-        description: `Please select: ${missingVariants.join(", ")}`,
-      });
+  const addToBag = () => {
+    if (missing.length) {
+      setShowSelectionError(true);
       return;
     }
-
-    dispatch(
-      addItem({
-        // Changed: persist the selected option values in the cart payload.
-        id: buildCartLineId(product.id, selectedVariants),
-        productId: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-        maxQuantity: 5,
-        quantity: 1,
-        variant: selectedVariants,
-      }),
-    );
-    toast.success("Added to cart", {
-      description: `${product.name}  added to your cart.`,
-    });
+    dispatch(addItem({ id: lineId!, productId: product.id, name: product.name, price: product.price, image: product.image, maxQuantity: product.stockCount, quantity: 1, variant: selectedVariants }));
+    toast.success("Added to bag", { description: product.name });
   };
 
-  const handleWishlistToggle = () => {
-    setIsWishlisted(!isWishlisted);
-    toast(isWishlisted ? "Removed from wishlist" : "Added to wishlist", {
-      description: `${product.name} has been ${
-        isWishlisted ? "removed from" : "added to"
-      } your wishlist.`,
-    });
-  };
-
-  const handleShare = () => {
-    if (navigator.share) {
-      navigator.share({
-        title: product.name,
-        text: product.description,
-        url: window.location.href,
-      });
-    } else {
-      navigator.clipboard.writeText(window.location.href);
-      toast.success("Link copied", {
-        description: "Product link copied to clipboard.",
-      });
-    }
+  const share = async () => {
+    try {
+      if (navigator.share) await navigator.share({ title: product.name, text: product.description, url: window.location.href });
+      else { await navigator.clipboard.writeText(window.location.href); toast.success("Link copied"); }
+    } catch { /* A cancelled share sheet needs no error message. */ }
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: 0.2 }}
-      className="space-y-6"
-    >
-      {/* Header */}
-      <div>
-        <div className="flex items-center justify-between mb-2">
-          <Badge variant="outline">{product.brand}</Badge>
-          <div className="flex items-center gap-2">
-            <Button variant="ghost" size="icon" onClick={handleWishlistToggle}>
-              <Heart
-                className={`w-5 h-5 ${
-                  isWishlisted ? "fill-current text-red-500" : ""
-                }`}
-              />
-            </Button>
-            <Button variant="ghost" size="icon" onClick={handleShare}>
-              <Share2 className="w-5 h-5" />
-            </Button>
-          </div>
-        </div>
-        <h1 className="text-3xl font-bold mb-2">{product.name}</h1>
-        {product.badge && (
-          <Badge variant={getBadgeVariant(product.badge)} className="mb-3">
-            {product.badge}
-          </Badge>
-        )}
-        <div className="flex items-center gap-2 mb-4">
-          {renderStars(product.rating)}
-          <span className="text-sm text-muted-foreground">
-            ({product.reviewCount} reviews)
-          </span>
-        </div>
-      </div>
-      {/* Price */}
-      <div className="flex items-center gap-3">
-        <span className="text-3xl font-bold">${product.price}</span>
-        {product.originalPrice && (
-          <span className="text-xl text-muted-foreground line-through">
-            ${product.originalPrice}
-          </span>
-        )}
-        {product.originalPrice && (
-          <Badge variant="destructive">
-            {Math.round((1 - product.price / product.originalPrice) * 100)}% OFF
-          </Badge>
-        )}
-      </div>
-      {/* Description */}
-      <p className="text-muted-foreground leading-relaxed">
-        {product.description}
-      </p>
-      {/* Stock Status */}
-      <div className="flex items-center gap-2">
-        <div
-          className={`w-3 h-3 rounded-full ${
-            product.inStock ? "bg-green-500" : "bg-red-500"
-          }`}
-        />
-        <span className={product.inStock ? "text-green-600" : "text-red-600"}>
-          {product.inStock
-            ? `In Stock (${product.stockCount} available)`
-            : "Out of Stock"}
-        </span>
-      </div>
-      {/* Variants */}
-      {product.variants.length > 0 && (
-        <ProductVariantPicker
-          variants={product.variants}
-          selectedVariants={selectedVariants}
-          onVariantChange={setSelectedVariants}
-        />
-      )}
-      {/* Quantity and Add to Cart */}
-      <div className="space-y-4">
-        {cartValues && (
-          <div className="flex items-center gap-4">
-            <label className="text-sm font-medium">Quantity:</label>
-            <div className="flex items-center border rounded-lg">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={decrement}
-                disabled={cartValues.quantity <= 1}
-              >
-                -
-              </Button>
-              <span className="px-4 py-2 min-w-12 text-center">
-                {cartValues.quantity}
-              </span>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={increment}
-                disabled={cartValues.quantity >= product.stockCount}
-              >
-                +
-              </Button>
-            </div>
-          </div>
-        )}
-        {!cartValues && (
-          <Button
-            size="lg"
-            className="w-full"
-            onClick={handleAddToCart}
-            disabled={!product.inStock}
-          >
-            <ShoppingCart className="w-5 h-5 mr-2" />
-            {product.inStock ? "Add to Cart" : "Out of Stock"}
-          </Button>
-        )}
-      </div>
-      {/* Features */}
-      <div className="grid grid-cols-3 gap-4 pt-6">
-        <div className="text-center space-y-2">
-          <Truck className="w-8 h-8 mx-auto text-muted-foreground" />
-          <div className="text-xs">
-            <div className="font-medium">Free Shipping</div>
-            <div className="text-muted-foreground">Orders over $50</div>
-          </div>
-        </div>
-        <div className="text-center space-y-2">
-          <RefreshCw className="w-8 h-8 mx-auto text-muted-foreground" />
-          <div className="text-xs">
-            <div className="font-medium">Free Returns</div>
-            <div className="text-muted-foreground">30-day return</div>
-          </div>
-        </div>
-        <div className="text-center space-y-2">
-          <Shield className="w-8 h-8 mx-auto text-muted-foreground" />
-          <div className="text-xs">
-            <div className="font-medium">Warranty</div>
-            <div className="text-muted-foreground">1-year warranty</div>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+    <section className="pb-20 lg:pb-0">
+      <div className="flex items-start justify-between gap-4"><div><p className="text-xs font-medium uppercase tracking-[.22em] text-muted-foreground">{product.brand}</p><h1 className="mt-3 text-4xl font-semibold leading-[.95] tracking-[-.055em] sm:text-5xl">{product.name}</h1></div><div className="flex gap-1"><Button variant="ghost" size="icon" className="rounded-full" onClick={() => dispatch(wishlistToggled(product.id))} aria-label="Save product"><Heart className={isWishlisted ? "fill-current text-destructive" : ""} /></Button><Button variant="ghost" size="icon" className="rounded-full" onClick={share} aria-label="Share product"><Share2 /></Button></div></div>
+      <button type="button" className="mt-4 flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"><Star className="h-4 w-4 fill-current" /> <span>{product.rating.toFixed(1)}</span><span>·</span><span className="underline underline-offset-4">{product.reviewCount} reviews</span></button>
+      <div className="mt-7 flex items-end gap-3"><span className="text-3xl font-semibold">${product.price.toFixed(2)}</span>{product.originalPrice && <span className="pb-1 text-base text-muted-foreground line-through">${product.originalPrice.toFixed(2)}</span>}</div>
+      <p className="mt-6 text-sm leading-7 text-muted-foreground">{product.description}</p>
+      <div className="mt-6 flex items-center gap-2 text-sm"><span className={`h-2 w-2 rounded-full ${product.inStock ? "bg-green-600" : "bg-destructive"}`} />{product.inStock ? `${product.stockCount} pieces available` : "Currently unavailable"}</div>
+
+      {product.variants.length > 0 && <div className="mt-8 border-t border-border pt-7"><ProductVariantPicker variants={product.variants} selectedVariants={selectedVariants} onVariantChange={values => { setSelectedVariants(values); setShowSelectionError(false); }} /></div>}
+      {showSelectionError && missing.length > 0 && <p role="alert" className="mt-4 text-sm text-destructive">Choose {missing.join(" and ")} before adding this piece.</p>}
+
+      <Button size="lg" onClick={addToBag} disabled={!product.inStock || !!cartLine} className="mt-8 hidden h-13 w-full rounded-full lg:flex">{cartLine ? "In your bag" : <><ShoppingBag className="mr-2 h-5 w-5" /> Add to bag</>}</Button>
+
+      <div className="mt-8 divide-y divide-border border-y border-border text-sm"><Disclosure title="Delivery & returns">Complimentary delivery over $50 and returns within 30 days.</Disclosure><Disclosure title="Seller">Sold by {product.brand}. Seller profiles will link to their public Aurela shop.</Disclosure></div>
+
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 p-3 backdrop-blur lg:hidden"><div className="mx-auto flex max-w-lg items-center gap-3"><div className="min-w-0 flex-1"><p className="truncate text-sm font-medium">{product.name}</p><p className="text-sm text-muted-foreground">${product.price.toFixed(2)}</p></div><Button onClick={addToBag} disabled={!product.inStock || !!cartLine} className="h-12 rounded-full px-6">{cartLine ? "In bag" : "Add to bag"}</Button></div></div>
+    </section>
   );
+}
+
+function Disclosure({ title, children }: { title: string; children: React.ReactNode }) {
+  return <details className="group py-4"><summary className="cursor-pointer list-none font-medium">{title}<span className="float-right text-muted-foreground group-open:rotate-45">+</span></summary><p className="pt-3 leading-6 text-muted-foreground">{children}</p></details>;
 }

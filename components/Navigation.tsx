@@ -15,6 +15,8 @@ const Navigation: React.FC = () => {
   const navigationItems = [
     { title: "Shop", href: "/products", hasDropdown: true },
     { title: "Categories", href: "/categories", hasDropdown: true },
+    { title: "Discover", href: "/reels", hasDropdown: false },
+    { title: "Track order", href: "/track-order", hasDropdown: false },
   ];
 
   return (

@@ -1,159 +1,27 @@
 "use client";
 
-import React, { useState } from "react";
-import { ChevronLeft, ChevronRight, Expand } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { motion, AnimatePresence } from "framer-motion";
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { ProductProps } from "@/types/products";
+import { Expand } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
 
-interface ProductGalleryProps {
-  images: string[];
-  productName: string;
-  className?: string;
-}
-
-export default function ProductGallery({
-  images,
-  productName,
-  className = "",
-}: ProductGalleryProps) {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-
-  const nextImage = () => {
-    setCurrentImageIndex((prev) => (prev + 1) % images.length);
-  };
-
-  const previousImage = () => {
-    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const selectImage = (index: number) => {
-    setCurrentImageIndex(index);
-  };
-
-  if (!images.length) return null;
+export default function ProductGallery({ product }: { product: ProductProps }) {
+  const [active, setActive] = useState(0);
+  const media: Array<{ type: "image" | "video"; src: string; id: string }> = product.images.map((src, index) => ({ type: "image", src, id: `image-${index}` }));
+  if (product.video) media.splice(1, 0, { type: "video" as const, src: product.video, id: "video" });
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className={`space-y-4 ${className}`}>
-        {/* Main Image */}
-        <div className="relative group">
-          <div className="aspect-square bg-gray-100 rounded-lg overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={currentImageIndex}
-                src={images[currentImageIndex]}
-                alt={`${productName} - Image ${currentImageIndex + 1}`}
-                className="w-full h-full object-cover"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </AnimatePresence>
+    <div>
+      <div className="-mx-3 flex snap-x snap-mandatory gap-2 overflow-x-auto px-3 pb-3 lg:mx-0 lg:grid lg:grid-cols-2 lg:overflow-visible lg:px-0">
+        {media.map((item, index) => (
+          <div key={item.id} className={`relative aspect-[4/5] w-[88vw] max-w-[520px] shrink-0 snap-center overflow-hidden rounded-[1.5rem] bg-muted lg:w-auto lg:max-w-none ${index === 0 ? "lg:col-span-2" : ""}`}>
+            {item.type === "video" ? <video src={item.src} poster={product.image} muted loop autoPlay playsInline controls className="h-full w-full object-cover" /> : <Image fill src={item.src} alt={`${product.name}, view ${index + 1}`} sizes="(max-width:1024px) 88vw, 55vw" className="object-cover" />}
+            {item.type === "image" && <Dialog onOpenChange={open => open && setActive(index)}><DialogTrigger asChild><button type="button" aria-label={`Expand image ${index + 1}`} className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full bg-background/85 text-foreground backdrop-blur"><Expand className="h-4 w-4" /></button></DialogTrigger><DialogContent className="h-[92dvh] max-w-6xl border-0 bg-primary p-3 text-primary-foreground"><DialogTitle className="sr-only">{product.name} gallery</DialogTitle><DialogDescription className="sr-only">Expanded product image</DialogDescription><div className="relative h-full w-full"><Image fill src={media[active]?.src ?? item.src} alt={`${product.name}, expanded view`} sizes="100vw" className="object-contain" /></div></DialogContent></Dialog>}
           </div>
-
-          {/* Navigation arrows */}
-          {images.length > 1 && (
-            <>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={previousImage}
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={nextImage}
-              >
-                <ChevronRight className="w-5 h-5" />
-              </Button>
-            </>
-          )}
-
-          {/* Expand button */}
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute top-2 right-2 bg-white/80 hover:bg-white opacity-0 group-hover:opacity-100 transition-opacity"
-              >
-                <Expand className="w-4 h-4" />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-4xl">
-              <div className="relative">
-                <img
-                  src={images[currentImageIndex]}
-                  alt={`${productName} - Full size`}
-                  className="w-full h-auto max-h-[80vh] object-contain"
-                />
-
-                {images.length > 1 && (
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
-                      onClick={previousImage}
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white"
-                      onClick={nextImage}
-                    >
-                      <ChevronRight className="w-5 h-5" />
-                    </Button>
-                  </>
-                )}
-              </div>
-            </DialogContent>
-          </Dialog>
-        </div>
-
-        {/* Thumbnail Images */}
-        {images.length > 1 && (
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {images.map((image, index) => (
-              <button
-                key={index}
-                onClick={() => selectImage(index)}
-                className={`flex-shrink-0 w-16 h-16 rounded-md overflow-hidden border-2 transition-colors ${
-                  index === currentImageIndex
-                    ? "border-primary"
-                    : "border-transparent hover:border-gray-300"
-                }`}
-              >
-                <img
-                  src={image}
-                  alt={`${productName} - Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
-                />
-              </button>
-            ))}
-          </div>
-        )}
-
-        {/* Image counter */}
-        {images.length > 1 && (
-          <div className="text-sm text-muted-foreground text-center">
-            {currentImageIndex + 1} of {images.length}
-          </div>
-        )}
+        ))}
       </div>
-    </motion.div>
+      <div className="mt-2 text-center text-xs text-muted-foreground lg:hidden">Swipe to explore · {media.length} views</div>
+    </div>
   );
 }

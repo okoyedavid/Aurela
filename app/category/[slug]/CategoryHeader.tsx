@@ -1,72 +1,26 @@
-"use client";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { CategoryPage } from "@/types/category";
-import { motion } from "framer-motion";
-import { ArrowLeft, Package } from "lucide-react";
+import { ArrowDown, ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { CategoryPage } from "@/types/category";
 
 export default function CategoryHeader({ category }: CategoryPage) {
   return (
-    <div className="relative bg-linear-to-r from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="grid grid-cols-1 md:grid-cols-2 h-full items-center gap-8">
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          className="flex-1 text-center lg:text-left p-12"
-        >
-          <div className="flex items-center gap-2 mb-4">
-            <Link href="/products">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                All Products
-              </Button>
-            </Link>
-            <span className="text-muted-foreground">/</span>
-            <Badge className="px-2 py-1" variant="outline">
-              {category.name}
-            </Badge>
-          </div>
-
-          <h1 className="text-4xl font-bold mb-4">{category.name}</h1>
-
-          {category.description && (
-            <p className="text-lg text-muted-foreground mb-6 max-w-2xl">
-              {category.description}
-            </p>
-          )}
-
-          <div className="flex flex-wrap items-center gap-4 justify-center lg:justify-start">
-            <div className="flex items-center gap-2">
-              <Package className="w-5 h-5 text-muted-foreground" />
-              <span className="text-muted-foreground">
-                {category.productCount} products
-              </span>
+    <section className="px-3 pb-8 sm:px-5 lg:px-6">
+      <div className="relative mx-auto min-h-[420px] max-w-7xl overflow-hidden rounded-[1.75rem] bg-primary text-primary-foreground sm:min-h-[480px] lg:min-h-[520px] lg:rounded-[2.5rem]">
+        <Image fill src={category.image} alt={`${category.name} collection`} priority sizes="(max-width:1280px) 100vw, 1280px" className="object-cover object-center" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-primary/10 lg:bg-gradient-to-r lg:from-primary/85 lg:via-primary/30 lg:to-primary/5" />
+        <div className="relative flex min-h-[420px] flex-col p-6 sm:min-h-[480px] sm:p-10 lg:min-h-[520px] lg:p-14">
+          <Link href="/products" className="inline-flex w-fit items-center gap-2 text-xs font-medium uppercase tracking-[.2em] text-primary-foreground/70 transition hover:text-primary-foreground"><ArrowLeft className="h-4 w-4" /> All products</Link>
+          <div className="mt-auto max-w-2xl">
+            <p className="text-xs uppercase tracking-[.28em] text-primary-foreground/65">Aurela collection</p>
+            <h1 className="mt-4 text-5xl font-semibold leading-[.92] tracking-[-.06em] sm:text-7xl lg:text-8xl">{category.name}</h1>
+            <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+              <p className="max-w-lg text-sm leading-7 text-primary-foreground/75 sm:text-base">{category.description}</p>
+              <a href="#collection" className="inline-flex shrink-0 items-center gap-2 text-xs uppercase tracking-[.2em] text-primary-foreground/70">Explore <span className="grid h-9 w-9 place-items-center rounded-full border border-primary-foreground/30"><ArrowDown className="h-4 w-4" /></span></a>
             </div>
-            {category.featured && <Badge>Featured Category</Badge>}
           </div>
-        </motion.div>
-
-        {category.image && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="shrink-0 relative min-h-[400px] h-full w-full overflow-hidden "
-          >
-            <div className="absolute inset-0 bg-linear-to-r from-gray-50  to-transparent z-10"></div>
-            <Image
-              fill
-              src={category.image}
-              alt={category.name}
-              className="object-cover object-top-left"
-            />
-          </motion.div>
-        )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

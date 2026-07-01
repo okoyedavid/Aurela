@@ -7,35 +7,62 @@ import {
   clearRating,
   selectFilteredProducts,
   selectFilters,
+  setQuery as setProductQuery,
   toggleBrand,
   toggleCategory,
 } from "@/features/products/productsSlice";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../../components/products/ProductCard";
 import ProductSearch from "../../components/products/ProductSearch";
 
 interface ProductListingProps {
   categoryFilter?: string;
+  initialQuery?: string;
+  subcategoryFilter?: string;
 }
 
 export default function ProductListing({
   categoryFilter,
+  initialQuery = "",
+  subcategoryFilter,
 }: ProductListingProps) {
-  const products = useSelector(selectFilteredProducts);
+  const allFilteredProducts = useSelector(selectFilteredProducts);
+  const products = allFilteredProducts.filter(product =>
+    (!categoryFilter || product.category === categoryFilter) &&
+    (!subcategoryFilter || product.subcategory === subcategoryFilter)
+  );
   const filters = useSelector(selectFilters);
   const dispatch = useDispatch();
-  const [query, setQuery] = useState("");
+  const [query, setLocalQuery] = useState(initialQuery);
+  const router = useRouter();
+  const pathname = usePathname();
 
-  const handleSearchChange = (value: string) => setQuery(value);
+  useEffect(() => {
+    dispatch(setProductQuery(initialQuery));
+  }, [dispatch, initialQuery]);
+
+  const handleSearchChange = (value: string) => {
+    setLocalQuery(value);
+    dispatch(setProductQuery(value));
+    const params = new URLSearchParams();
+    if (subcategoryFilter) params.set("subcategory", subcategoryFilter);
+    if (value.trim()) params.set("q", value.trim());
+    router.replace(`${pathname}${params.size ? `?${params}` : ""}`, { scroll: false });
+  };
 
   return (
     <div className={`space-y-6 max-w-7xl px-6 mx-auto`}>
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">
-            {categoryFilter ? `${categoryFilter} Products` : "All Products"}
+            {subcategoryFilter
+              ? `${subcategoryFilter} in ${categoryFilter}`
+              : categoryFilter
+                ? `${categoryFilter} Products`
+                : "All Products"}
           </h1>
           <p className="text-muted-foreground mt-1">
             {products.length} product{products.length !== 1 ? "s" : ""} found

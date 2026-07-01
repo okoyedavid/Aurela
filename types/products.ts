@@ -32,6 +32,7 @@ export type ProductProps = {
   originalPrice?: number;
   category: string;
   image: string;
+  video?: string;
   subcategory: string;
   brand: string;
   variants: ProductVariantProps[];
@@ -43,6 +44,8 @@ export type ProductProps = {
   reviewCount: number;
   badge?: string;
   featured: boolean;
+  createdAt: string;
+  onSale: boolean;
 };
 
 export type ProductsArray = {

@@ -73,7 +73,9 @@ export function TeamCards() {
                       .slice(0, 2)}
                   </div>
                   <div>
-                    <div className="font-semibold text-white">{member.name}</div>
+                    <div className="font-semibold text-white">
+                      {member.name}
+                    </div>
                     <div className="text-sm text-white/45">{member.role}</div>
                   </div>
                 </div>
@@ -222,7 +224,10 @@ export function CountriesCard() {
 }
 
 export function SegmentationCard() {
-  const total = audienceSegments.reduce((sum, segment) => sum + segment.count, 0);
+  const total = audienceSegments.reduce(
+    (sum, segment) => sum + segment.count,
+    0,
+  );
 
   return (
     <div className="w-full p-2 xl:w-1/3">

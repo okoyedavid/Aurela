@@ -32,7 +32,7 @@ export default function ProductNotFound() {
               asChild
               className="rounded-full bg-[#171717] px-6 text-white hover:bg-black"
             >
-              <Link href="/shop">
+              <Link href="/products">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back To Products
               </Link>

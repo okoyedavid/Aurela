@@ -1,11 +1,8 @@
-import ProductClient from "./ProductClient";
+import { Banknote, Boxes, PackageCheck, Truck } from "lucide-react";
+import Link from "next/link";
 
-interface productDetails {
-  params: Promise<{ productId: string }>;
-}
-
-export default async function ProductDetail({ params }: productDetails) {
-  const param = await params;
-
-  return <ProductClient id={param.productId} />;
+export default async function ShopOverviewPage({ params }: { params: Promise<{ productId: string }> }) {
+  const { productId } = await params;
+  const metrics = [{ label: "Published products", value: "24", Icon: Boxes }, { label: "Pending orders", value: "6", Icon: PackageCheck }, { label: "Paid this month", value: "$4,820", Icon: Banknote }, { label: "Delivery requests", value: "2", Icon: Truck }];
+  return <div><div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">{metrics.map(({ label, value, Icon }) => <div key={label} className="rounded-3xl border border-border bg-card p-5"><div className="flex items-center justify-between text-sm text-muted-foreground"><span>{label}</span><Icon className="h-4 w-4" /></div><p className="mt-7 text-3xl font-semibold">{value}</p></div>)}</div><div className="mt-5 grid gap-5 xl:grid-cols-[1.2fr_.8fr]"><section className="rounded-3xl border border-border bg-card p-6"><h2 className="text-xl font-semibold">Pending fulfilments</h2><div className="mt-5 divide-y divide-border">{[["SF-1048-FT", "Amara K.", "$398", "Preparing"], ["SF-1052-FT", "Tobi A.", "$184", "Ready"], ["SF-1056-FT", "Leila M.", "$96", "Delivery requested"]].map(([code, customer, total, status]) => <div key={code} className="grid gap-2 py-4 sm:grid-cols-[1fr_auto_auto]"><div><p className="font-medium">{code}</p><p className="text-sm text-muted-foreground">{customer}</p></div><span className="text-sm">{status}</span><strong>{total}</strong></div>)}</div><Link href={`/shop/${productId}/orders`} className="mt-5 inline-flex text-sm font-semibold">View all orders →</Link></section><section className="rounded-3xl bg-primary p-6 text-primary-foreground"><p className="text-xs uppercase tracking-[.2em] text-primary-foreground/55">Delivery control</p><h2 className="mt-4 text-3xl">Choose fulfilment per order.</h2><p className="mt-4 leading-7 text-primary-foreground/65">Handle delivery yourself or request platform delivery. Platform requests are inspected before acceptance and carry a 10% item-subtotal fee.</p><Link href={`/shop/${productId}/delivery`} className="mt-8 inline-flex rounded-full bg-background px-5 py-3 text-sm font-semibold text-foreground">Manage delivery</Link></section></div></div>;
 }

@@ -1,40 +1,38 @@
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../ui/button";
+import Link from "next/link";
 
-const AngledColumnsGallery = () => {
-  const DATA = [
-    "/products/women.jpeg",
-    "/products/kids.jpeg",
-    "/products/men.jpeg",
-  ];
-
+export default function SalesBanner() {
   return (
-    <section className="py-16 px-6 bg-muted">
-      <div className="max-w-6xl mx-auto">
-        <div className="skew grid grid-cols-6 filter-[drop-shadow(2px_2px_5px_#000)] text-white rounded-2xl relative overflow-hidden">
-          <div className="clip col-span-3 gallery-section">
-            <div className="text-sm font-medium mb-2">20% OFF</div>
-            <h2 className="text-4xl font-bold mb-4">Summer Sale</h2>
-            <div className="text-sm mb-6">15 Nov To 7 Dec</div>
-            <Button className="bg-white text-red-400 rounded-full w-45">
-              Shop Now
-            </Button>
-          </div>
-
-          {DATA.map((code, idx) => (
-            <div key={idx} className="relative gallery-img">
-              <Image
-                fill
-                className="object-cover object-top-left"
-                src={code}
-                alt={`Gallery image ${idx + 1}`}
-              />
-            </div>
-          ))}
+    <section className="bg-muted px-3 py-12 sm:px-5 lg:px-6 lg:py-16">
+      <div className="relative mx-auto min-h-[520px] max-w-6xl overflow-hidden rounded-[2rem] bg-primary text-primary-foreground sm:min-h-[580px] lg:min-h-[500px] lg:rounded-[2.5rem]">
+        <Image
+          fill
+          src="/products/weddingredDress.jpeg"
+          alt="Aurela seasonal collection"
+          sizes="(max-width: 1200px) 100vw, 1200px"
+          className="object-cover object-top"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-primary/5 lg:bg-gradient-to-r lg:from-primary/90 lg:via-primary/45 lg:to-primary/10" />
+        <div className="relative flex min-h-[520px] max-w-xl flex-col justify-end p-7 sm:min-h-[580px] sm:p-10 lg:min-h-[500px] lg:justify-center lg:p-14">
+          <p className="text-xs uppercase tracking-[.28em] text-primary-foreground/65">
+            Seasonal edit · limited time
+          </p>
+          <h2 className="mt-5 text-5xl font-semibold leading-[.92] tracking-[-.055em] sm:text-6xl">
+            The occasion collection.
+          </h2>
+          <p className="mt-5 max-w-md leading-7 text-primary-foreground/70">
+            Selected tailoring and evening pieces, considered for arrivals worth
+            remembering.
+          </p>
+          <Link
+            href="/collections/occasion-edit"
+            className="mt-8 inline-flex h-12 w-fit items-center gap-3 rounded-full bg-primary-foreground px-7 text-sm font-semibold text-primary"
+          >
+            Explore the edit <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
       </div>
     </section>
   );
-};
-
-export default AngledColumnsGallery;
+}

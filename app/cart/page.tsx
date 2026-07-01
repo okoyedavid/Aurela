@@ -96,20 +96,18 @@ const CartPage: React.FC = () => {
   if (cart.length === 0) return <EmptyCart />;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Shopping Cart</h1>
+    <div className="min-h-screen bg-muted text-foreground">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <p className="text-xs uppercase tracking-[.28em] text-muted-foreground">Your selection</p>
+        <div className="mb-10 mt-3 flex items-end justify-between"><h1 className="text-4xl font-semibold tracking-[-.05em] sm:text-6xl">Shopping bag</h1><span className="pb-2 text-sm text-muted-foreground">{cart.length} curated piece{cart.length === 1 ? "" : "s"}</span></div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2">
-            <div className="bg-white rounded-lg shadow-sm">
-              <div className="p-6">
-                <h2 className="text-lg font-medium text-gray-900 mb-4">
-                  Cart Items ({cart.length})
-                </h2>
+            <div className="rounded-[2rem] border border-border bg-card">
+              <div className="p-5 sm:p-8">
 
-                <div className="divide-y divide-gray-200">
+                <div className="divide-y divide-border">
                   {cart.map((item) => (
                     <CartItem
                       key={item.id}
@@ -125,9 +123,9 @@ const CartPage: React.FC = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow-sm sticky top-8">
-              <div className="p-6">
-                <h2 className="text-lg font-medium text-gray-900 mb-4">
+            <div className="sticky top-20 rounded-[2rem] bg-primary text-primary-foreground shadow-xl">
+              <div className="p-6 sm:p-8">
+                <p className="mb-2 text-xs uppercase tracking-[.22em] text-white/45">Secure checkout</p><h2 className="mb-7 text-2xl font-medium">
                   Order Summary
                 </h2>
 
@@ -135,7 +133,7 @@ const CartPage: React.FC = () => {
                 <div className="mb-6">
                   <label
                     htmlFor="promo"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="mb-2 block text-sm font-medium text-white/65"
                   >
                     Promo Code
                   </label>
@@ -160,7 +158,7 @@ const CartPage: React.FC = () => {
                       </Button>
                     </div>
                   ) : (
-                    <div className="flex space-x-2">
+                    <div className="flex space-x-2 [&_input]:border-white/15 [&_input]:bg-white/8 [&_input]:text-white [&_input]:placeholder:text-white/35">
                       <Input
                         id="promo"
                         placeholder="Enter code"
@@ -174,7 +172,7 @@ const CartPage: React.FC = () => {
                       <Button
                         onClick={handleApplyPromo}
                         disabled={!promoInput.trim() || isApplyingPromo}
-                        variant="outline"
+                        className="rounded-full border-white/20 bg-white text-black hover:bg-white/90"
                       >
                         {isApplyingPromo ? "Applying..." : "Apply"}
                       </Button>
@@ -185,7 +183,7 @@ const CartPage: React.FC = () => {
                 {/* Price Breakdown */}
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Subtotal</span>
+                    <span className="text-white/55">Subtotal</span>
                     <span className="font-medium">${subtotal.toFixed(2)}</span>
                   </div>
 
@@ -199,12 +197,12 @@ const CartPage: React.FC = () => {
                   )}
 
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Tax</span>
+                    <span className="text-white/55">Tax</span>
                     <span className="font-medium">${getTax().toFixed(2)}</span>
                   </div>
 
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Shipping</span>
+                    <span className="text-white/55">Shipping</span>
                     <span className="font-medium">
                       {getShipping() === 0
                         ? "Free"
@@ -233,7 +231,7 @@ const CartPage: React.FC = () => {
                 )}
 
                 {/* Checkout Button */}
-                <Button asChild className="w-full mt-6" size="lg">
+                <Button asChild className="mt-7 w-full rounded-full bg-primary-foreground text-primary hover:bg-primary-foreground/90" size="lg">
                   <Link
                     href="/checkout"
                     className="flex items-center justify-center"
@@ -243,8 +241,8 @@ const CartPage: React.FC = () => {
                   </Link>
                 </Button>
 
-                <Button asChild variant="outline" className="w-full mt-3">
-                  <Link href="/shop">Continue Shopping</Link>
+                <Button asChild variant="ghost" className="mt-3 w-full rounded-full text-white/70 hover:bg-white/10 hover:text-white">
+                  <Link href="/products">Continue Shopping</Link>
                 </Button>
               </div>
             </div>

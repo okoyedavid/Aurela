@@ -1,188 +1,125 @@
-"use client";
-
-import { Button } from "@/components/ui/button";
-import { Menu, ArrowLeft } from "lucide-react";
-import Image from "next/image";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-const backgroundImages = [
-  "/login/login-bg4.jpg",
-  "/login/login-bg4.jpg",
-  "/login/login-bg4.jpg",
-];
-
-const topLinks = ["Login", "Sign Up"];
-const progressSteps = [
-  { index: "01", label: "Get started", active: false },
-  { index: "02", label: "Tell us about yourself", active: true },
-  { index: "03", label: "Verify your identity", active: false },
-  { index: "04", label: "Get your debit card", active: false },
-];
+import AuthHeroImage from "@/components/auth/AuthHeroImage";
+import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
 
 export default function LoginPage() {
-  const [backgroundImage, setBackgroundImage] = useState(backgroundImages[0]);
-
-  useEffect(() => {
-    // Changed: rotate to a random supplied background after mount without an impure render path.
-    const frameId = window.requestAnimationFrame(() => {
-      const randomIndex = Math.floor(Math.random() * backgroundImages.length);
-      setBackgroundImage(backgroundImages[randomIndex]);
-    });
-
-    return () => window.cancelAnimationFrame(frameId);
-  }, []);
-
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#dad7d1] text-white">
-      <div className="absolute inset-0">
-        <Image
-          src={backgroundImage}
-          alt="Editorial login background"
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(26,26,26,0.42)_0%,rgba(26,26,26,0.18)_42%,rgba(26,26,26,0.28)_100%)]" />
-      </div>
-
-      <div className="relative mx-auto flex min-h-screen max-w-7xl flex-col px-4 py-4 sm:px-6 lg:px-8">
-        <header className="flex items-center justify-between">
-          <Link href="/" className="text-3xl font-semibold tracking-[-0.04em]">
-            Auvé.
-          </Link>
-
-          <div className="flex items-center gap-3 rounded-full border border-white/20 bg-black/10 px-3 py-2 backdrop-blur-sm md:bg-transparent md:px-0 md:py-0">
-            <nav className="hidden items-center gap-8 text-sm text-white/85 md:flex">
-              {topLinks.map((item) => (
-                <Link
-                  key={item}
-                  href="#"
-                  className="transition hover:text-white"
-                >
-                  {item}
-                </Link>
-              ))}
-            </nav>
-            <button
-              type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/8 transition hover:bg-white/15"
+    <main className="h-dvh overflow-hidden bg-muted text-foreground">
+      <div className="grid h-full grid-rows-[30dvh_1fr] overflow-hidden bg-primary lg:grid-cols-[1.08fr_.92fr] lg:grid-rows-1">
+        <section className="relative flex min-h-0 flex-col overflow-hidden p-5 text-primary-foreground sm:p-8 lg:p-10">
+          <AuthHeroImage set="men" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.16),rgba(0,0,0,.68))]" />
+          <header className="relative flex items-center justify-between">
+            <Link href="/" className="text-3xl font-semibold tracking-[-.05em]">
+              Aurela.
+            </Link>
+            <Link
+              href="/products"
+              className="rounded-full border border-white/30 px-5 py-2 text-sm backdrop-blur-md transition hover:bg-white hover:text-black"
             >
-              <Menu className="h-5 w-5" />
-            </button>
-          </div>
-        </header>
-
-        <section className="grid flex-1 items-center gap-10 py-8 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8 lg:py-12">
-          <div className="max-w-[34rem] self-center">
-            <p className="text-xs uppercase tracking-[0.28em] text-white/65">
-              Fashion Redefined
+              Explore collection
+            </Link>
+          </header>
+          <div className="relative mt-auto max-w-xl">
+            <p className="hidden text-xs uppercase tracking-[.3em]  text-primary-foreground/65 sm:block">
+              Your private wardrobe
             </p>
-            <h1 className="mt-6 text-6xl font-semibold leading-[0.92] tracking-[-0.06em] sm:text-7xl lg:text-[6.25rem]">
-              Welcome
+            <h1 className="mt-2 text-3xl font-semibold leading-[.95] tracking-[-.055em] sm:mt-5 sm:text-5xl lg:text-7xl">
+              Return to
               <br />
-              to Auvé.
+              your world.
             </h1>
-            <p className="mt-6 max-w-md text-sm leading-7 text-white/72 sm:text-base">
-              Step into your personal style space. Create an account in seconds
-              and enjoy curated collections, exclusive access, and a seamless
-              shopping experience.
+            <p className="mt-6 hidden max-w-md leading-7 text-primary-foreground/70 lg:block">
+              Track considered purchases, save exceptional pieces, and continue
+              your Aurela experience.
             </p>
-          </div>
-
-          <div className="w-full justify-self-end lg:max-w-[30rem]">
-            <div className="rounded-[2rem] bg-white p-6 text-[#141414] shadow-[0_28px_80px_rgba(0,0,0,0.18)] sm:p-8">
-              <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.2em] text-[#7d786f]">
-                <div className="flex items-center gap-2">
-                  <span>02</span>
-                  <span className="h-px w-6 bg-[#d8d1c7]" />
-                  <span>Tell us about yourself</span>
-                </div>
-              </div>
-
-              <div className="mt-10 space-y-8">
-                <div>
-                  <h2 className="text-4xl font-semibold tracking-[-0.05em] text-[#111111] sm:text-5xl">
-                    Personal info
-                  </h2>
-                </div>
-
-                <div className="space-y-7">
-                  <Field label="Name" value="Arthur Berglund" />
-                  <Field label="Email" value="arthur@Auvé.co" />
-
-                  <div className="space-y-3">
-                    <label className="text-xs font-medium uppercase tracking-[0.18em] text-[#8a857d]">
-                      Birth date
-                    </label>
-                    <div className="grid grid-cols-3 gap-4">
-                      <Field label="Day" value="08" />
-                      <Field label="Month" value="August" />
-                      <Field label="Year" value="1994" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between gap-4 pt-6">
-                  <button
-                    type="button"
-                    className="inline-flex items-center gap-2 text-sm text-[#36322d] transition hover:text-black"
-                  >
-                    <ArrowLeft className="h-4 w-4" />
-                    <span>Back</span>
-                  </button>
-
-                  {/* Changed: CTA mirrors the reference with a compact black pill aligned to the right. */}
-                  <Button className="min-w-36 rounded-full bg-black px-8 text-white hover:bg-[#111111]">
-                    Continue
-                  </Button>
-                </div>
-              </div>
-            </div>
           </div>
         </section>
 
-        <footer className="mt-auto pt-4">
-          <div className="grid gap-4 border-t border-white/20 pt-4 md:grid-cols-4 md:gap-6">
-            {progressSteps.map((step) => (
-              <div key={step.index} className="space-y-3">
-                <div className="flex items-center gap-3 text-xs uppercase tracking-[0.22em]">
-                  <span
-                    className={step.active ? "text-white" : "text-white/55"}
-                  >
-                    {step.index}
-                  </span>
-                  <span
-                    className={step.active ? "text-white" : "text-white/55"}
-                  >
-                    {step.label}
-                  </span>
-                </div>
-                <div className="h-px w-full bg-white/18">
-                  <div
-                    className={`h-full ${
-                      step.active ? "w-full bg-white" : "w-0 bg-transparent"
-                    }`}
-                  />
-                </div>
+        <section className="min-h-0 overflow-y-auto bg-card px-6 py-7 text-card-foreground sm:px-12 sm:py-9 lg:flex lg:items-center lg:px-16">
+          <div className="mx-auto w-full max-w-md">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground"
+            >
+              <ArrowLeft className="h-4 w-4" /> Back home
+            </Link>
+            <p className="mt-7 text-xs uppercase tracking-[.26em] text-muted-foreground lg:mt-10">
+              Member access
+            </p>
+            <h2 className="mt-4 text-4xl font-semibold tracking-[-.045em] sm:text-5xl">
+              Welcome back.
+            </h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              Sign in to view purchases, saved items and account details.
+            </p>
+            <div className="mt-7 lg:mt-9">
+              <GoogleAuthButton label="Sign in with Google" />
+              <div className="my-5 flex items-center gap-3 text-xs uppercase tracking-[.18em] text-muted-foreground">
+                <span className="h-px flex-1 bg-border" />
+                <span>or use email</span>
+                <span className="h-px flex-1 bg-border" />
               </div>
-            ))}
+            </div>
+            <form className="space-y-6">
+              <label className="block">
+                <span className="text-xs uppercase tracking-[.18em] text-muted-foreground">
+                  Email address
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  autoComplete="email"
+                  required
+                  placeholder="you@example.com"
+                  className="mt-2 h-11 w-full border-b border-border bg-transparent outline-none transition focus:border-foreground"
+                />
+              </label>
+              <label className="block">
+                <span className="text-xs uppercase tracking-[.18em] text-muted-foreground">
+                  Password
+                </span>
+                <input
+                  type="password"
+                  name="password"
+                  autoComplete="current-password"
+                  required
+                  placeholder="Your password"
+                  className="mt-2 h-11 w-full border-b border-border bg-transparent outline-none transition focus:border-foreground"
+                />
+              </label>
+              <div className="flex items-center justify-between text-sm">
+                <label className="flex items-center gap-2 text-muted-foreground">
+                  <input type="checkbox" className="accent-primary" /> Remember
+                  me
+                </label>
+                <Link
+                  href="/forgot-password"
+                  className="underline underline-offset-4"
+                >
+                  Forgot password?
+                </Link>
+              </div>
+              <button
+                type="submit"
+                className="flex h-13 w-full items-center justify-center gap-3 rounded-full bg-primary font-medium text-primary-foreground transition hover:bg-primary/90"
+              >
+                Sign in <ArrowRight className="h-4 w-4" />
+              </button>
+            </form>
+            <p className="mt-6 text-center text-sm text-muted-foreground">
+              New to Aurela?{" "}
+              <Link
+                href="/signup"
+                className="font-medium text-foreground underline underline-offset-4"
+              >
+                Create an account
+              </Link>
+            </p>
           </div>
-        </footer>
+        </section>
       </div>
     </main>
-  );
-}
-
-function Field({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="space-y-2">
-      <label className="text-xs font-medium uppercase tracking-[0.18em] text-[#8a857d]">
-        {label}
-      </label>
-      <div className="border-b border-[#ece6de] pb-3 text-base text-[#161616] sm:text-lg">
-        {value}
-      </div>
-    </div>
   );
 }

@@ -1,5 +1,6 @@
-import DashboardShell from "./_components/dashboard-shell";
+import AccountCards from "./_components/account-cards";
 
-export default function DashboardPage() {
-  return <DashboardShell />;
+export default async function DashboardPage() {
+  await new Promise((resolve) => setTimeout(resolve, 2000));
+  return <AccountCards />;
 }

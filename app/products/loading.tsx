@@ -1,0 +1,3 @@
+export default function ProductsLoading() {
+  return <main className="mx-auto min-h-screen max-w-7xl px-3 py-10 sm:px-5 lg:px-6"><div className="h-3 w-28 animate-pulse rounded-full bg-muted" /><div className="mt-5 h-14 w-72 max-w-full animate-pulse rounded-2xl bg-muted" /><div className="mt-10 h-16 animate-pulse rounded-[1.5rem] bg-muted" /><div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-9 sm:gap-x-5 lg:grid-cols-4">{Array.from({ length: 8 }, (_, index) => <div key={index}><div className="aspect-[4/5] animate-pulse rounded-[1.5rem] bg-muted" /><div className="mt-4 h-3 w-20 animate-pulse rounded bg-muted" /><div className="mt-3 h-5 w-3/4 animate-pulse rounded bg-muted" /></div>)}</div></main>;
+}

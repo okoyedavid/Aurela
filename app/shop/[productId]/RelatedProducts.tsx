@@ -21,9 +21,9 @@ export default function RelatedProducts({ id }: { id: string }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.6 }}
     >
-      <h2 className="text-2xl font-bold mb-8">Related Products</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {relatedProducts.map((productId) => (
+      <div className="mb-8"><p className="text-xs uppercase tracking-[.24em] text-muted-foreground">Continue exploring</p><h2 className="mt-2 text-3xl font-semibold tracking-[-.04em] sm:text-5xl">You may also like</h2></div>
+      <div className="grid grid-cols-2 gap-x-3 gap-y-8 sm:gap-x-5 lg:grid-cols-4">
+        {relatedProducts.slice(0, 4).map((productId) => (
           <ProductCard key={productId.id} id={productId.id} />
         ))}
       </div>

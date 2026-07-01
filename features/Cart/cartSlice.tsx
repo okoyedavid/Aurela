@@ -69,6 +69,11 @@ const cartSlice = createSlice({
       state.appliedPromo = null;
       state.discountedPrice = 0;
     },
+    cartCleared: (state) => {
+      cartAdapter.removeAll(state);
+      state.appliedPromo = null;
+      state.discountedPrice = 0;
+    },
 
     decreaseItemCount: (state, action: PayloadAction<{ id: string }>) => {
       const { id } = action.payload;
@@ -148,6 +153,7 @@ export const {
   removePromo,
   productRemoved,
   updateItemCount,
+  cartCleared,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

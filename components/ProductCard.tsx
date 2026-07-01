@@ -17,7 +17,7 @@ export default function ProductCard({
 
   return (
     <Link
-      href={`/shop/${product.id}`}
+      href={`/products/${product.id}`}
       className={`${spantwo && "col-span-2"} group`}
     >
       <div className="relative w-full h-96 overflow-hidden rounded-lg mb-4">

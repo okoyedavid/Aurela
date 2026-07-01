@@ -35,7 +35,7 @@ export default function ProductClient({ id }: { id: string }) {
           </div>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button asChild className="rounded-full bg-[#171717] px-6 text-white hover:bg-black">
-              <Link href="/shop">
+              <Link href="/products">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back To Products
               </Link>
@@ -54,17 +54,14 @@ export default function ProductClient({ id }: { id: string }) {
   }
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="mx-auto max-w-7xl px-3 py-6 sm:px-5 lg:px-6 lg:py-8">
         <Navigation product={product} />
-        <Button variant="ghost" className="mb-6">
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back
-        </Button>
+        <Button asChild variant="ghost" className="mb-6"><Link href="/products"><ArrowLeft className="mr-2 h-4 w-4" />Back to collection</Link></Button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          <ProductGallery images={product.images} productName={product.name} />
-          <ProductDescription product={product} />
+        <div className="mb-20 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(340px,.65fr)] lg:items-start lg:gap-14">
+          <ProductGallery product={product} />
+          <div className="lg:sticky lg:top-24"><ProductDescription product={product} /></div>
         </div>
 
         <ProductDetails product={product} />

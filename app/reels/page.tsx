@@ -4,6 +4,7 @@ import { store } from "@/store/store"; // adjust path
 import Head from "next/head";
 import { Provider } from "react-redux";
 import VerticalProductFeed from "./VerticalProductFeed";
+import Navbar from "@/components/navBar";
 
 export default function ScrollFeedPage() {
   return (
@@ -11,7 +12,8 @@ export default function ScrollFeedPage() {
       <Head>
         <title>Discover — Scroll Feed</title>
       </Head>
-      <main className="min-h-screen">
+      <Navbar />
+      <main className="min-h-[calc(100dvh-60px)]">
         <VerticalProductFeed />
       </main>
     </Provider>

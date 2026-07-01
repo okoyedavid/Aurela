@@ -5,6 +5,7 @@ import { RootState } from "@/store/store";
 import { selectFilteredProducts } from "@/features/products/productsSlice"; // adjust path if needed
 import ProductSlide from "./ProductSlide";
 import { AnimatePresence } from "framer-motion";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 const THROTTLE_MS = 450; // prevent accidental double-swipes
 
@@ -13,6 +14,7 @@ export default function VerticalProductFeed() {
     selectFilteredProducts(state)
   );
   const [index, setIndex] = useState(0);
+  const [direction, setDirection] = useState(1);
   const lastAction = useRef(0);
   const touchStartY = useRef<number | null>(null);
 
@@ -28,7 +30,12 @@ export default function VerticalProductFeed() {
       const now = performance.now();
       if (now - lastAction.current < THROTTLE_MS) return;
       lastAction.current = now;
-      setIndex((i) => clampIndex(next));
+      setIndex((currentIndex) => {
+        const target = clampIndex(next);
+        if (target === currentIndex) return currentIndex;
+        setDirection(target > currentIndex ? 1 : -1);
+        return target;
+      });
     },
     [clampIndex]
   );
@@ -65,9 +72,6 @@ export default function VerticalProductFeed() {
     const onTouchStart = (e: TouchEvent) => {
       touchStartY.current = e.touches[0].clientY;
     };
-    const onTouchMove = (e: TouchEvent) => {
-      // do nothing, just capture start
-    };
     const onTouchEnd = (e: TouchEvent) => {
       if (touchStartY.current == null) return;
       const dy = (e.changedTouches[0].clientY ?? 0) - touchStartY.current;
@@ -76,11 +80,9 @@ export default function VerticalProductFeed() {
       touchStartY.current = null;
     };
     window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
     return () => {
       window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onTouchEnd);
     };
   }, [next, prev]);
@@ -109,16 +111,13 @@ export default function VerticalProductFeed() {
   }
 
   const current = products[index];
-  const prevItem = products[index - 1];
-  const nextItem = products[index + 1];
-
   const handleQuickBuy = (id: string) => {
     // connect to your cart action eventually
     console.log("Quick buy", id);
   };
 
   return (
-    <div className="w-full h-screen relative select-none overflow-hidden bg-white">
+    <div className="relative h-[calc(100dvh-60px)] w-full select-none overflow-hidden bg-black md:bg-white">
       {/* Indicator & controls */}
       <div className="absolute z-40 top-6 left-6">
         <div className="bg-black/60 text-white text-xs px-3 py-1 rounded-full">
@@ -126,64 +125,20 @@ export default function VerticalProductFeed() {
         </div>
       </div>
 
-      <div className="absolute z-40 top-6 right-6 flex flex-col gap-2 items-end">
-        <button
-          onClick={() => prev()}
-          className="bg-white/90 p-2 rounded-md shadow-sm hover:scale-95"
-          aria-label="Previous"
-        >
-          ↑
-        </button>
-        <button
-          onClick={() => next()}
-          className="bg-white/90 p-2 rounded-md shadow-sm hover:scale-95"
-          aria-label="Next"
-        >
-          ↓
-        </button>
+      <div className="absolute right-6 top-6 z-40 flex flex-col items-end gap-2">
+        <button onClick={prev} className="rounded-full bg-white/90 p-2 text-black shadow-sm transition hover:scale-95" aria-label="Previous"><ChevronUp className="h-4 w-4" /></button>
+        <button onClick={next} className="rounded-full bg-white/90 p-2 text-black shadow-sm transition hover:scale-95" aria-label="Next"><ChevronDown className="h-4 w-4" /></button>
       </div>
 
-      {/* Slides (only mount prev, current, next) */}
-      <div className="w-full h-full">
-        <AnimatePresence initial={false} mode="wait">
-          {/* previous (rendered behind current) */}
-          {prevItem && index > 0 && (
-            <div
-              key={`p-${prevItem.id}`}
-              className="absolute inset-0 z-10 pointer-events-none"
-            >
-              <ProductSlide
-                product={prevItem}
-                isActive={false}
-                onQuickBuy={handleQuickBuy}
-              />
-            </div>
-          )}
-
-          {/* current (top) */}
-          {current && (
-            <div key={`c-${current.id}`} className="absolute inset-0 z-20">
-              <ProductSlide
-                product={current}
-                isActive={true}
-                onQuickBuy={handleQuickBuy}
-              />
-            </div>
-          )}
-
-          {/* next (preloaded behind) */}
-          {nextItem && (
-            <div
-              key={`n-${nextItem.id}`}
-              className="absolute inset-0 z-15 pointer-events-none"
-            >
-              <ProductSlide
-                product={nextItem}
-                isActive={false}
-                onQuickBuy={handleQuickBuy}
-              />
-            </div>
-          )}
+      <div className="relative h-full w-full">
+        <AnimatePresence initial={false} custom={direction} mode="sync">
+          <ProductSlide
+            key={current.id}
+            product={current}
+            isActive
+            direction={direction}
+            onQuickBuy={handleQuickBuy}
+          />
         </AnimatePresence>
       </div>
     </div>

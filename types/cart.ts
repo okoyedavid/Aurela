@@ -81,4 +81,6 @@ export type ProductProps = {
   reviewCount: number;
   badge?: string;
   featured: boolean;
+  createdAt: string;
+  onSale: boolean;
 };

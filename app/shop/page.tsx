@@ -1,5 +1,2 @@
-import ProductListing from "@/components/products/ProductListing";
-
-export default function Page() {
-  return <ProductListing />;
-}
+import { redirect } from "next/navigation";
+export default function ShopPage() { redirect("/dashboard/shops"); }

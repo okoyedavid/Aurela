@@ -6,11 +6,12 @@ import Link from "next/link";
 import Subcategories from "./Subcategories";
 import CategoryHeader from "./CategoryHeader";
 
-const HomePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
-  const searchParams = await params;
-  const currentSlug = searchParams.slug;
+const HomePage = async ({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string; subcategory?: string }> }) => {
+  const routeParams = await params;
+  const currentSlug = routeParams.slug;
 
   const category = categories.find((cat) => cat.slug === currentSlug);
+  const query = await searchParams;
 
   if (!category) {
     return (
@@ -21,7 +22,7 @@ const HomePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
           <p className="text-muted-foreground">
             {" The category you're looking for doesn't exist."}
           </p>
-          <Link href="/shop">
+          <Link href="/products">
             <Button>
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to All Products
@@ -36,8 +37,8 @@ const HomePage = async ({ params }: { params: Promise<{ slug: string }> }) => {
     <div className="min-h-screen">
       <CategoryHeader category={category} />
       <Subcategories category={category.name} />
-      <div className="container mx-auto px-4 pb-12">
-        <ProductListing categoryFilter={category.name} />
+      <div id="collection" className="scroll-mt-20 pb-12">
+        <ProductListing categoryFilter={category.name} subcategoryFilter={query.subcategory} initialQuery={query.q} />
       </div>
     </div>
   );
