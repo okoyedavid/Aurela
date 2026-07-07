@@ -11,7 +11,7 @@ const THROTTLE_MS = 450; // prevent accidental double-swipes
 
 export default function VerticalProductFeed() {
   const products = useSelector((state: RootState) =>
-    selectFilteredProducts(state)
+    selectFilteredProducts(state),
   );
   const [index, setIndex] = useState(0);
   const [direction, setDirection] = useState(1);
@@ -21,7 +21,7 @@ export default function VerticalProductFeed() {
   // clamp index
   const clampIndex = useCallback(
     (next: number) => Math.max(0, Math.min(products.length - 1, next)),
-    [products.length]
+    [products.length],
   );
 
   // change index with throttle
@@ -37,7 +37,7 @@ export default function VerticalProductFeed() {
         return target;
       });
     },
-    [clampIndex]
+    [clampIndex],
   );
 
   const next = useCallback(() => goTo(index + 1), [goTo, index]);
@@ -117,7 +117,7 @@ export default function VerticalProductFeed() {
   };
 
   return (
-    <div className="relative h-[calc(100dvh-60px)] w-full select-none overflow-hidden bg-black md:bg-white">
+    <div className="relative h-[calc(100dvh-60px)] w-full select-none overflow-hidden bg-black md:bg-white md:dark:bg-black">
       {/* Indicator & controls */}
       <div className="absolute z-40 top-6 left-6">
         <div className="bg-black/60 text-white text-xs px-3 py-1 rounded-full">
@@ -126,8 +126,20 @@ export default function VerticalProductFeed() {
       </div>
 
       <div className="absolute right-6 top-6 z-40 flex flex-col items-end gap-2">
-        <button onClick={prev} className="rounded-full bg-white/90 p-2 text-black shadow-sm transition hover:scale-95" aria-label="Previous"><ChevronUp className="h-4 w-4" /></button>
-        <button onClick={next} className="rounded-full bg-white/90 p-2 text-black shadow-sm transition hover:scale-95" aria-label="Next"><ChevronDown className="h-4 w-4" /></button>
+        <button
+          onClick={prev}
+          className="rounded-full bg-white/90 p-2 text-black shadow-sm transition hover:scale-95"
+          aria-label="Previous"
+        >
+          <ChevronUp className="h-4 w-4" />
+        </button>
+        <button
+          onClick={next}
+          className="rounded-full bg-white/90 p-2 text-black shadow-sm transition hover:scale-95"
+          aria-label="Next"
+        >
+          <ChevronDown className="h-4 w-4" />
+        </button>
       </div>
 
       <div className="relative h-full w-full">

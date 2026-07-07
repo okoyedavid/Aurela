@@ -222,7 +222,7 @@ export default function AdminPaymentsPage() {
           <div
             role="dialog"
             aria-modal="true"
-            className="w-full max-w-lg rounded-[2rem] border border-border bg-card p-6 shadow-2xl sm:p-8"
+            className="w-full max-w-lg rounded-4xl border border-border bg-card p-6 shadow-2xl sm:p-8"
           >
             <div className="flex items-start justify-between">
               <div>

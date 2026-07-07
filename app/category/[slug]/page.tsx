@@ -6,7 +6,13 @@ import Link from "next/link";
 import Subcategories from "./Subcategories";
 import CategoryHeader from "./CategoryHeader";
 
-const HomePage = async ({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams: Promise<{ q?: string; subcategory?: string }> }) => {
+const HomePage = async ({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ q?: string; subcategory?: string }>;
+}) => {
   const routeParams = await params;
   const currentSlug = routeParams.slug;
 
@@ -38,7 +44,11 @@ const HomePage = async ({ params, searchParams }: { params: Promise<{ slug: stri
       <CategoryHeader category={category} />
       <Subcategories category={category.name} />
       <div id="collection" className="scroll-mt-20 pb-12">
-        <ProductListing categoryFilter={category.name} subcategoryFilter={query.subcategory} initialQuery={query.q} />
+        <ProductListing
+          categoryFilter={category.name}
+          subcategoryFilter={query.subcategory}
+          initialQuery={query.q}
+        />
       </div>
     </div>
   );

@@ -33,32 +33,27 @@ export const CartItem: React.FC<CartItemProps> = ({
     dispatch(
       increaseItemCount({
         id: item.id,
-      })
+      }),
     );
   const decrement = () =>
     dispatch(
       decreaseItemCount({
         id: item.id,
-      })
+      }),
     );
   return (
     <div className={`flex items-start gap-4 py-6 sm:gap-6 ${className}`}>
       <div className="relative h-28 w-24 shrink-0 overflow-hidden rounded-2xl bg-[#e9e3d9] sm:h-36 sm:w-28">
-        <Image
-          fill
-          src={item.image}
-          alt={item.name}
-          className="object-cover"
-        />
+        <Image fill src={item.image} alt={item.name} className="object-cover" />
       </div>
 
       <div className="flex-1 min-w-0">
-        <h3 className="truncate text-base font-medium text-[#171717] sm:text-lg">
+        <h3 className="truncate text-base font-medium dark:text-scrim-foreground sm:text-lg">
           {item.name}
         </h3>
 
         {item.variant && (
-          <div className="mt-1 text-sm capitalize text-[#827a70]">
+          <div className="mt-1 text-sm capitalize dark:text-scrim-foreground">
             {Object.entries(item.variant)
               .filter(([_, value]) => value)
               .map(([key, value]) => `${key}: ${value}`)
@@ -67,7 +62,7 @@ export const CartItem: React.FC<CartItemProps> = ({
         )}
 
         <div className="mt-2 flex items-center space-x-3">
-          <div className="flex items-center rounded-full border border-[#d9d1c5] bg-white">
+          <div className="flex items-center rounded-full border border-border ">
             <Button
               variant="ghost"
               size="icon"
@@ -100,7 +95,7 @@ export const CartItem: React.FC<CartItemProps> = ({
           <Button
             variant="ghost"
             size="icon"
-            className="h-8 w-8 text-[#81796f] hover:bg-[#eee9df] hover:text-black"
+            className="h-8 w-8 text-[#81796f] hover:bg-[#eee9df] hover:text-black dark:hover:text-white"
             onClick={() => onRemove(item.id)}
           >
             <X className="h-4 w-4" />

@@ -1,5 +1,52 @@
 import Image from "next/image";
 
-export default function LuxuryState({ eyebrow, title, description, children, image = "/auth/women-3.jpg" }: { eyebrow: string; title: string; description: string; children: React.ReactNode; image?: string }) {
-  return <main className="min-h-dvh bg-muted p-3 text-foreground sm:p-5"><div className="mx-auto grid min-h-[calc(100dvh-1.5rem)] max-w-7xl overflow-hidden rounded-[2rem] bg-card lg:grid-cols-[1.05fr_.95fr]"><section className="relative min-h-[38vh] overflow-hidden text-primary-foreground lg:min-h-full"><Image fill src={image} alt="Aurela editorial" priority sizes="(max-width:1024px) 100vw, 55vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/15 to-primary/10" /><div className="absolute bottom-7 left-7 text-2xl font-semibold sm:bottom-10 sm:left-10">Aurela.</div></section><section className="flex items-center px-7 py-12 sm:px-12 lg:px-16"><div className="max-w-xl"><p className="text-xs uppercase tracking-[.28em] text-muted-foreground">{eyebrow}</p><h1 className="mt-5 text-5xl font-semibold leading-[.9] tracking-[-.06em] sm:text-7xl">{title}</h1><p className="mt-6 max-w-lg leading-7 text-muted-foreground">{description}</p><div className="mt-8 flex flex-col gap-3 sm:flex-row">{children}</div></div></section></div></main>;
+export default function LuxuryState({
+  eyebrow,
+  title,
+  description,
+  children,
+  image = "/auth/women-3.jpg",
+}: {
+  eyebrow: string;
+  title: string;
+  description: string;
+  children: React.ReactNode;
+  image?: string;
+}) {
+  return (
+    <main className="min-h-dvh bg-muted text-foreground">
+      <div className="mx-auto grid min-h-screen max-w-screen overflow-hidden bg-card lg:grid-cols-[1.05fr_.95fr]">
+        <section className="relative min-h-[38vh] overflow-hidden text-primary-foreground lg:min-h-full">
+          <Image
+            fill
+            src={image}
+            alt="Aurela editorial"
+            priority
+            sizes="(max-width:1024px) 100vw, 55vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-linear-to-t from-primary/80 dark:from-black/90 dark:via-black/25 dark:to-black/15 via-primary/15 to-primary/10" />
+          <div className="absolute bottom-7 left-7 text-2xl font-semibold sm:bottom-10 sm:left-10">
+            Aurela.
+          </div>
+        </section>
+        <section className="flex items-center px-7 py-12 sm:px-12 lg:px-16">
+          <div className="max-w-xl">
+            <p className="text-xs uppercase tracking-[.28em] text-muted-foreground">
+              {eyebrow}
+            </p>
+            <h1 className="mt-5 text-5xl font-semibold leading-[.9] tracking-[-.06em] sm:text-7xl">
+              {title}
+            </h1>
+            <p className="mt-6 max-w-lg leading-7 text-muted-foreground">
+              {description}
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              {children}
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }

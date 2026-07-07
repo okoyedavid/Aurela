@@ -32,7 +32,7 @@ export default function CustomerDashboardLayout({
         className={`min-h-screen transition-[padding] duration-300 ${collapsed ? "lg:pl-20" : "lg:pl-72"}`}
       >
         <div className="min-h-screen p-2 sm:p-4">
-          <div className="min-h-[calc(100vh-1rem)] rounded-[2rem] border border-border bg-background p-2 sm:p-3">
+          <div className="min-h-[calc(100vh-1rem)] rounded-4xl border border-border bg-background p-2 sm:p-3">
             <DashboardHeader
               onOpenSidebar={() => setSidebarOpen(true)}
               onToggleSidebarCollapse={() => setCollapsed((value) => !value)}

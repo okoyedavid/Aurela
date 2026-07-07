@@ -8,6 +8,8 @@
   --color-foreground: var(--foreground);
   --color-tetiary: var(--tetiary);
   --font-sans: var(--font-geist-sans);
+  --color-scrim: var(--scrim);
+  --color-scrim-foreground: var(--scrim-foreground);
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -46,6 +48,8 @@
 
 :root {
   --radius: 0.625rem;
+  --scrim: oklch(0.205 0 0);
+  --scrim-foreground: oklch(0.985 0 0);
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -84,6 +88,8 @@
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
+  --scrim: oklch(0.145 0 0);
+  --scrim-foreground: oklch(0.985 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);

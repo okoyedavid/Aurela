@@ -52,18 +52,18 @@ export default function Categories() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover transition duration-700 group-hover:scale-[1.03]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-scrim/80 via-scrim/10 to-transparent" />
               <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-5 p-6">
                 <div>
-                  <p className="text-xs uppercase tracking-[.22em] text-primary-foreground/60">
+                  <p className="text-xs uppercase tracking-[.22em] text-scrim-foreground/60">
                     {category.subtitle}
                   </p>
-                  <h3 className="mt-2 text-3xl font-semibold">
+                  <h3 className="mt-2 text-3xl text-scrim-foreground font-semibold">
                     {category.title}
                   </h3>
                 </div>
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-primary-foreground/30 bg-primary/15 backdrop-blur">
-                  <ArrowUpRight className="h-4 w-4" />
+                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-scrim-foreground/30 bg-primary/15 backdrop-blur">
+                  <ArrowUpRight className="h-4 w-4 text-scrim-foreground" />
                 </span>
               </div>
             </Link>

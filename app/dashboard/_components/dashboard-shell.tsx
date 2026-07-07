@@ -53,7 +53,7 @@ export default function DashboardShell({
 
       <div className="flex min-h-screen flex-1 flex-col lg:pl-72">
         <div className="flex-1 p-2 sm:p-4">
-          <div className="min-h-[calc(100vh-1rem)] rounded-[2rem] border border-border bg-background p-2 sm:p-3">
+          <div className="min-h-[calc(100vh-1rem)] rounded-4xl border border-border bg-background p-2 sm:p-3">
             <DashboardHeader
               accountMode={mode === "account"}
               onOpenSidebar={() => setSidebarOpen(true)}

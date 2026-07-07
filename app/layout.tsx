@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import "./animations.css";
 import "./globals.css";
+import DashboardThemeProvider from "@/components/dashboard/DashboardThemeProvider";
 
 const playfair = Space_Grotesk({
   variable: "--font-playfair",
@@ -29,8 +30,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         <Provider>
-          <Toaster />
-          {children}
+          <DashboardThemeProvider>
+            <Toaster />
+            {children}
+          </DashboardThemeProvider>
         </Provider>
       </body>
     </html>

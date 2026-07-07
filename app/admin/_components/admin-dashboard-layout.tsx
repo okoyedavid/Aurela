@@ -85,7 +85,7 @@ export default function AdminDashboardLayout({
               <X className="h-4 w-4" />
             </button>
           </div>
-<nav className="mt-6 min-h-0 flex-1 space-y-2 overflow-y-auto overscroll-contain pr-1">
+          <nav className="mt-6 min-h-0 flex-1 space-y-2 overflow-y-auto overscroll-contain pr-1">
             {links.map(({ label, href, Icon }) => {
               const active =
                 href === "/admin"
@@ -134,7 +134,7 @@ export default function AdminDashboardLayout({
       <div
         className={`min-h-screen p-2 transition-[padding] duration-300 sm:p-4 ${collapsed ? "lg:pl-24" : "lg:pl-[18rem]"}`}
       >
-        <div className="min-h-[calc(100vh-2rem)] rounded-[2rem] border border-border bg-background p-3 sm:p-5">
+        <div className="min-h-[calc(100vh-2rem)] rounded-4xl border border-border bg-background p-3 sm:p-5">
           <header className="flex items-center justify-between border-b border-border pb-4">
             <div className="flex items-center gap-3">
               <button

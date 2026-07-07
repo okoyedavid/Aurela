@@ -32,15 +32,23 @@ export default React.memo(function ProductSlide({
       animate="center"
       exit="exit"
       transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
-      className="absolute inset-0 flex h-full w-full will-change-transform items-center justify-center bg-black md:bg-gradient-to-b md:from-white md:to-gray-50"
+      className="absolute inset-0 flex h-full w-full will-change-transform items-center justify-center bg-scrim md:bg-linear-to-b md:from-background md:to-background"
       aria-hidden={!isActive}
     >
       <div className="relative flex h-full w-full max-w-3xl flex-col items-stretch gap-6 md:h-[88vh] md:flex-row md:p-8">
         {/* Left: Media */}
-        <div className="absolute inset-0 flex items-center justify-center overflow-hidden bg-gray-100 md:relative md:flex-1 md:rounded-2xl md:shadow-md">
+        <div className="absolute inset-0 flex items-center justify-center overflow-hidden bg-muted md:relative md:flex-1 md:rounded-2xl md:shadow-md">
           {/* Using next/image gives automatic optimization; fallback to img if not using Next.js */}
           {product.video ? (
-            <video src={product.video} poster={product.image} autoPlay={isActive} muted loop playsInline className="h-full w-full object-cover" />
+            <video
+              src={product.video}
+              poster={product.image}
+              autoPlay={isActive}
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover"
+            />
           ) : product.image ? (
             <div className="relative w-full h-full">
               <Image
@@ -53,23 +61,25 @@ export default React.memo(function ProductSlide({
               />
             </div>
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-gray-400">
+            <div className="w-full h-full flex items-center justify-center text-muted-foreground">
               No image
             </div>
           )}
         </div>
 
         {/* Right: Info / Actions */}
-        <div className="relative z-10 mt-auto flex w-full flex-col gap-4 bg-gradient-to-t from-black via-black/70 to-transparent p-6 pt-28 text-white md:mt-0 md:w-96 md:bg-none md:p-0 md:text-[#171717]">
+        <div className="relative z-10 mt-auto flex w-full flex-col gap-4 bg-linear-to-t from-scrim via-scrim/70 to-transparent p-6 pt-28 text-scrim-foreground md:mt-0 md:w-96 md:bg-none md:bg-card md:text-card-foreground md:rounded-2xl">
           <div>
             <h2 className="text-2xl md:text-3xl font-semibold">
               {product.name}
             </h2>
-            <p className="mt-1 text-sm text-white/65 md:text-gray-500">{product.brand}</p>
+            <p className="mt-1 text-sm text-scrim-foreground/65 md:text-muted-foreground">
+              {product.brand}
+            </p>
           </div>
 
           <div className="flex-1 overflow-auto">
-            <p className="line-clamp-3 text-sm leading-relaxed text-white/75 md:line-clamp-none md:text-gray-700">
+            <p className="line-clamp-3 text-sm leading-relaxed text-scrim-foreground/75 md:line-clamp-none md:text-foreground/80">
               {product.description}
             </p>
           </div>
@@ -80,7 +90,7 @@ export default React.memo(function ProductSlide({
                 ${product.price.toFixed(2)}
               </div>
               {product.originalPrice ? (
-                <div className="text-xs line-through text-gray-400">
+                <div className="text-xs text-muted-foreground line-through">
                   ${product.originalPrice.toFixed(2)}
                 </div>
               ) : null}
@@ -89,12 +99,12 @@ export default React.memo(function ProductSlide({
             <div className="flex items-center gap-2">
               <button
                 onClick={() => onQuickBuy?.(product.id)}
-                className="px-4 py-2 rounded-md bg-black text-white text-sm shadow hover:opacity-95"
+                className="rounded-md bg-primary px-4 py-2 text-sm text-primary-foreground shadow hover:opacity-95"
               >
                 Quick buy
               </button>
               <button
-                className="px-3 py-2 rounded-md border text-sm"
+                className="rounded-md border border-border px-3 py-2 text-sm"
                 aria-label="More actions"
               >
                 …
@@ -102,7 +112,7 @@ export default React.memo(function ProductSlide({
             </div>
           </div>
 
-          <div className="flex gap-2 text-xs text-gray-500 mt-2">
+          <div className="mt-2 flex gap-2 text-xs text-muted-foreground">
             <div>{product.reviewCount ?? 0} reviews</div>
             <div>•</div>
             <div>{product.rating ?? 0} ★</div>

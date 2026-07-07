@@ -185,7 +185,7 @@ export default function AdminProductsPage() {
           <div
             role="dialog"
             aria-modal="true"
-            className="my-6 w-full max-w-xl rounded-[2rem] border border-border bg-card p-6 shadow-2xl sm:p-8"
+            className="my-6 w-full max-w-xl rounded-4xl border border-border bg-card p-6 shadow-2xl sm:p-8"
           >
             <div className="flex items-start justify-between">
               <div>

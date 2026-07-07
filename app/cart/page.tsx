@@ -98,15 +98,23 @@ const CartPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-muted text-foreground">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-        <p className="text-xs uppercase tracking-[.28em] text-muted-foreground">Your selection</p>
-        <div className="mb-10 mt-3 flex items-end justify-between"><h1 className="text-4xl font-semibold tracking-[-.05em] sm:text-6xl">Shopping bag</h1><span className="pb-2 text-sm text-muted-foreground">{cart.length} curated piece{cart.length === 1 ? "" : "s"}</span></div>
+        <p className="text-xs uppercase tracking-[.28em] text-muted-foreground">
+          Your selection
+        </p>
+        <div className="mb-10 mt-3 flex items-end justify-between">
+          <h1 className="text-4xl font-semibold tracking-[-.05em] sm:text-6xl">
+            Shopping bag
+          </h1>
+          <span className="pb-2 text-sm text-muted-foreground">
+            {cart.length} curated piece{cart.length === 1 ? "" : "s"}
+          </span>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Cart Items */}
           <div className="lg:col-span-2">
-            <div className="rounded-[2rem] border border-border bg-card">
+            <div className="rounded-4xl border border-border bg-card">
               <div className="p-5 sm:p-8">
-
                 <div className="divide-y divide-border">
                   {cart.map((item) => (
                     <CartItem
@@ -123,17 +131,18 @@ const CartPage: React.FC = () => {
 
           {/* Order Summary */}
           <div className="lg:col-span-1">
-            <div className="sticky top-20 rounded-[2rem] bg-primary text-primary-foreground shadow-xl">
+            <div className="sticky top-20 rounded-4xl bg-primary dark:bg-scrim text-scrim-foreground shadow-xl">
               <div className="p-6 sm:p-8">
-                <p className="mb-2 text-xs uppercase tracking-[.22em] text-white/45">Secure checkout</p><h2 className="mb-7 text-2xl font-medium">
-                  Order Summary
-                </h2>
+                <p className="mb-2 text-xs uppercase tracking-[.22em] text-scrim-foreground/45">
+                  Secure checkout
+                </p>
+                <h2 className="mb-7 text-2xl font-medium">Order Summary</h2>
 
                 {/* Promo Code */}
                 <div className="mb-6">
                   <label
                     htmlFor="promo"
-                    className="mb-2 block text-sm font-medium text-white/65"
+                    className="mb-2 block text-sm font-medium text-scrim-foreground/65"
                   >
                     Promo Code
                   </label>
@@ -231,7 +240,11 @@ const CartPage: React.FC = () => {
                 )}
 
                 {/* Checkout Button */}
-                <Button asChild className="mt-7 w-full rounded-full bg-primary-foreground text-primary hover:bg-primary-foreground/90" size="lg">
+                <Button
+                  asChild
+                  className="mt-7 w-full rounded-full bg-primary-foreground text-primary hover:bg-primary-foreground/90"
+                  size="lg"
+                >
                   <Link
                     href="/checkout"
                     className="flex items-center justify-center"
@@ -241,7 +254,11 @@ const CartPage: React.FC = () => {
                   </Link>
                 </Button>
 
-                <Button asChild variant="ghost" className="mt-3 w-full rounded-full text-white/70 hover:bg-white/10 hover:text-white">
+                <Button
+                  asChild
+                  variant="ghost"
+                  className="mt-3 w-full rounded-full text-white/70 hover:bg-white/10 hover:text-white"
+                >
                   <Link href="/products">Continue Shopping</Link>
                 </Button>
               </div>

@@ -35,7 +35,7 @@ export default function LogoutDialog({
             role="dialog"
             aria-modal="true"
             aria-labelledby="logout-title"
-            className="w-full max-w-md rounded-[2rem] border border-border bg-card p-6 text-card-foreground shadow-2xl sm:p-8"
+            className="w-full max-w-md rounded-4xl border border-border bg-card p-6 text-card-foreground shadow-2xl sm:p-8"
           >
             <span className="grid h-12 w-12 place-items-center rounded-full bg-destructive/10 text-destructive">
               <LogOut className="h-5 w-5" />

@@ -9,28 +9,31 @@ export default function LoginPage() {
       <div className="grid h-full grid-rows-[30dvh_1fr] overflow-hidden bg-primary lg:grid-cols-[1.08fr_.92fr] lg:grid-rows-1">
         <section className="relative flex min-h-0 flex-col overflow-hidden p-5 text-primary-foreground sm:p-8 lg:p-10">
           <AuthHeroImage set="men" />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.16),rgba(0,0,0,.68))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,.16),rgba(0,0,0,.68))] dark:bg-[linear-gradient(180deg,rgba(0,0,0,.22),rgba(0,0,0,.78))]" />
           <header className="relative flex items-center justify-between">
-            <Link href="/" className="text-3xl font-semibold tracking-[-.05em]">
+            <Link
+              href="/"
+              className="text-3xl text-scrim-foreground font-semibold tracking-[-.05em]"
+            >
               Aurela.
             </Link>
             <Link
               href="/products"
-              className="rounded-full border border-white/30 px-5 py-2 text-sm backdrop-blur-md transition hover:bg-white hover:text-black"
+              className="rounded-full border text-scrim-foreground border-scrim-foreground/30 px-5 py-2 text-sm backdrop-blur-md transition hover:bg-scrim/90 hover:text-scrim-foreground"
             >
               Explore collection
             </Link>
           </header>
           <div className="relative mt-auto max-w-xl">
-            <p className="hidden text-xs uppercase tracking-[.3em]  text-primary-foreground/65 sm:block">
+            <p className="hidden text-xs uppercase tracking-[.3em]  text-scrim-foreground/65 sm:block">
               Your private wardrobe
             </p>
-            <h1 className="mt-2 text-3xl font-semibold leading-[.95] tracking-[-.055em] sm:mt-5 sm:text-5xl lg:text-7xl">
+            <h1 className="mt-2 text-3xl font-semibold text-scrim-foreground  leading-[.95] tracking-[-.055em] sm:mt-5 sm:text-5xl lg:text-7xl">
               Return to
               <br />
               your world.
             </h1>
-            <p className="mt-6 hidden max-w-md leading-7 text-primary-foreground/70 lg:block">
+            <p className="mt-6 hidden max-w-md leading-7 text-scrim-foreground/70 lg:block">
               Track considered purchases, save exceptional pieces, and continue
               your Aurela experience.
             </p>

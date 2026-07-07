@@ -5,6 +5,141 @@ import { Input } from "@/components/ui/input";
 import { Check, Clock, Mail, ShieldCheck } from "lucide-react";
 import { FormEvent, useState } from "react";
 
-export default function ContactPage() { const [sent, setSent] = useState(false); const submit = (event: FormEvent) => { event.preventDefault(); setSent(true); }; return <SupportPage title="Speak with customer care." description="Tell us what happened, what you expected and the outcome you need. Clear details help the right person respond without making you repeat yourself."><div className="grid gap-6 lg:grid-cols-[1fr_320px]">{sent ? <section className="rounded-[2rem] border border-border bg-card p-8"><span className="grid h-12 w-12 place-items-center rounded-full bg-primary text-primary-foreground"><Check className="h-5 w-5" /></span><h2 className="mt-7 text-3xl font-semibold">Message received.</h2><p className="mt-4 leading-7 text-muted-foreground">This frontend demonstration has recorded the completed state. Production submission requires a support API, ticket reference and email acknowledgement.</p><Button variant="outline" className="mt-6 rounded-full" onClick={() => setSent(false)}>Send another message</Button></section> : <form onSubmit={submit} className="space-y-5 rounded-[2rem] border border-border bg-card p-6 sm:p-8"><div className="grid gap-5 sm:grid-cols-2"><Field label="Name" name="name" /><Field label="Email" name="email" type="email" /></div><Field label="Order reference (optional)" name="order" required={false} placeholder="AR-12345678" /><label className="block text-sm font-medium">Topic<select className="mt-2 h-12 w-full rounded-xl border border-border bg-background px-4" required><option value="">Choose a topic</option><option>Order and delivery</option><option>Return or refund</option><option>Product information</option><option>Account access</option><option>Seller concern</option></select></label><label className="block text-sm font-medium">How can we help?<textarea required rows={6} className="mt-2 w-full resize-y rounded-xl border border-border bg-background p-4 outline-none focus:border-ring" placeholder="Include useful dates, product names and what resolution would help." /></label><Button type="submit" className="h-12 rounded-full px-7">Send message</Button></form>}<aside className="space-y-4"><Info icon={Clock} title="Response expectation" text="Publish genuine support hours and response targets before launch." /><Info icon={ShieldCheck} title="Protect your information" text="Never include passwords, full payment-card details or security codes." /><Info icon={Mail} title="Email channel" text="A verified support address must be configured before production." /></aside></div></SupportPage>; }
-function Field({ label, name, type = "text", required = true, placeholder }: { label: string; name: string; type?: string; required?: boolean; placeholder?: string }) { return <label className="block text-sm font-medium">{label}<Input name={name} type={type} required={required} placeholder={placeholder} className="mt-2 h-12 rounded-xl" /></label>; }
-function Info({ icon: Icon, title, text }: { icon: typeof Clock; title: string; text: string }) { return <div className="rounded-[1.5rem] bg-muted p-5"><Icon className="h-5 w-5" /><h2 className="mt-5 font-semibold">{title}</h2><p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p></div>; }
+export default function ContactPage() {
+  const [sent, setSent] = useState(false);
+  const submit = (event: FormEvent) => {
+    event.preventDefault();
+    setSent(true);
+  };
+  return (
+    <SupportPage
+      title="Speak with customer care."
+      description="Tell us what happened, what you expected and the outcome you need. Clear details help the right person respond without making you repeat yourself."
+    >
+      <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+        {sent ? (
+          <section className="rounded-4xl border border-border bg-card p-8">
+            <span className="grid h-12 w-12 place-items-center rounded-full bg-primary text-primary-foreground">
+              <Check className="h-5 w-5" />
+            </span>
+            <h2 className="mt-7 text-3xl font-semibold">Message received.</h2>
+            <p className="mt-4 leading-7 text-muted-foreground">
+              This frontend demonstration has recorded the completed state.
+              Production submission requires a support API, ticket reference and
+              email acknowledgement.
+            </p>
+            <Button
+              variant="outline"
+              className="mt-6 rounded-full"
+              onClick={() => setSent(false)}
+            >
+              Send another message
+            </Button>
+          </section>
+        ) : (
+          <form
+            onSubmit={submit}
+            className="space-y-5 rounded-4xl border border-border bg-card p-6 sm:p-8"
+          >
+            <div className="grid gap-5 sm:grid-cols-2">
+              <Field label="Name" name="name" />
+              <Field label="Email" name="email" type="email" />
+            </div>
+            <Field
+              label="Order reference (optional)"
+              name="order"
+              required={false}
+              placeholder="AR-12345678"
+            />
+            <label className="block text-sm font-medium">
+              Topic
+              <select
+                className="mt-2 h-12 w-full rounded-xl border border-border bg-background px-4"
+                required
+              >
+                <option value="">Choose a topic</option>
+                <option>Order and delivery</option>
+                <option>Return or refund</option>
+                <option>Product information</option>
+                <option>Account access</option>
+                <option>Seller concern</option>
+              </select>
+            </label>
+            <label className="block text-sm font-medium">
+              How can we help?
+              <textarea
+                required
+                rows={6}
+                className="mt-2 w-full resize-y rounded-xl border border-border bg-background p-4 outline-none focus:border-ring"
+                placeholder="Include useful dates, product names and what resolution would help."
+              />
+            </label>
+            <Button type="submit" className="h-12 rounded-full px-7">
+              Send message
+            </Button>
+          </form>
+        )}
+        <aside className="space-y-4">
+          <Info
+            icon={Clock}
+            title="Response expectation"
+            text="Publish genuine support hours and response targets before launch."
+          />
+          <Info
+            icon={ShieldCheck}
+            title="Protect your information"
+            text="Never include passwords, full payment-card details or security codes."
+          />
+          <Info
+            icon={Mail}
+            title="Email channel"
+            text="A verified support address must be configured before production."
+          />
+        </aside>
+      </div>
+    </SupportPage>
+  );
+}
+function Field({
+  label,
+  name,
+  type = "text",
+  required = true,
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  required?: boolean;
+  placeholder?: string;
+}) {
+  return (
+    <label className="block text-sm font-medium">
+      {label}
+      <Input
+        name={name}
+        type={type}
+        required={required}
+        placeholder={placeholder}
+        className="mt-2 h-12 rounded-xl"
+      />
+    </label>
+  );
+}
+function Info({
+  icon: Icon,
+  title,
+  text,
+}: {
+  icon: typeof Clock;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="rounded-[1.5rem] bg-muted p-5">
+      <Icon className="h-5 w-5" />
+      <h2 className="mt-5 font-semibold">{title}</h2>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p>
+    </div>
+  );
+}

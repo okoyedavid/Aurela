@@ -1,3 +1,15 @@
 import Navbar from "@/components/navBar";
 import Footer from "@/components/navigation/Footer";
-export default function CollectionsLayout({ children }: { children: React.ReactNode }) { return <><Navbar />{children}<Footer /></>; }
+export default function CollectionsLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <Navbar />
+      {children}
+      <Footer />
+    </>
+  );
+}

@@ -7,7 +7,7 @@ export const EmptyCart: React.FC = () => {
   return (
     <div className="min-h-screen bg-muted">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="rounded-[2rem] border border-border bg-card">
+        <div className="rounded-4xl border border-border bg-card">
           <div className="p-6">
             <div className="text-center py-12">
               <ShoppingBag className="mx-auto mb-6 h-14 w-14 text-muted-foreground" />
