@@ -1,6 +1,6 @@
 import { curatedCollections, CollectionSlug } from "@/data/collections";
 import { notFound } from "next/navigation";
-import CollectionClient from "./CollectionClient";
+import CollectionClient from "./collection-client";
 export function generateStaticParams() {
   return Object.keys(curatedCollections).map((slug) => ({ slug }));
 }

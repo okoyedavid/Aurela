@@ -1,4 +1,4 @@
-import PublicPageShell from "@/components/PublicPageShell";
+import PublicPageShell from "@/components/layout/public-page-shell";
 import {
   ArrowUpRight,
   Check,

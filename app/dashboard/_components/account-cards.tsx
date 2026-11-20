@@ -1,8 +1,8 @@
 "use client";
 
-import { selectAllCart, selectCartSubtotal } from "@/features/Cart/cartSlice";
-import { selectAllProducts } from "@/features/products/productsSlice";
-import { selectWishlistIds } from "@/features/Wishlist/wishlistSlice";
+import { selectAllCart, selectCartSubtotal } from "@/features/cart/cart-slice";
+import { selectAllProducts } from "@/features/products/products-slice";
+import { selectWishlistIds } from "@/features/wishlist/wishlist-slice";
 import {
   ArrowRight,
   Bell,

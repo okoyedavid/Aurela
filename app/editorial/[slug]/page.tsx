@@ -1,4 +1,4 @@
-import PublicPageShell from "@/components/PublicPageShell";
+import PublicPageShell from "@/components/layout/public-page-shell";
 import { editorials, getEditorial } from "@/data/editorials";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";

@@ -1,13 +1,13 @@
 "use client";
-import Categories from "@/components/homepage/Categories";
+import Categories from "@/components/homepage/category-grid";
 import Hero from "@/components/homepage/hero";
 import NewDrops from "@/components/homepage/new-drops";
-import Newsletter from "@/components/homepage/NewsLetter";
+import Newsletter from "@/components/homepage/newsletter-form";
 import Recommendations from "@/components/homepage/recommendations";
-import SalesBanner from "@/components/homepage/SalesBanner";
-import Navbar from "@/components/navBar";
-import Footer from "@/components/navigation/Footer";
-import ReelsTeaser from "@/components/homepage/ReelsTeaser";
+import SalesBanner from "@/components/homepage/sales-banner";
+import Navbar from "@/components/navigation/navbar";
+import Footer from "@/components/navigation/site-footer";
+import ReelsTeaser from "@/components/homepage/reels-teaser";
 
 const Page = () => {
   return (

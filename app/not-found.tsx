@@ -1,4 +1,4 @@
-import LuxuryState from "@/components/system/LuxuryState";
+import LuxuryState from "@/components/system/luxury-state";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Search } from "lucide-react";
 import Link from "next/link";

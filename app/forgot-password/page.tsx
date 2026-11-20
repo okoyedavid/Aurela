@@ -1,5 +1,5 @@
 "use client";
-import AuthStatusShell from "@/components/auth/AuthStatusShell";
+import AuthStatusShell from "@/components/auth/auth-status-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Check, Mail } from "lucide-react";

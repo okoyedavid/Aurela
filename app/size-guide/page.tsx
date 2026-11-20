@@ -1,4 +1,4 @@
-import SupportPage from "@/components/support/SupportPage";
+import SupportPage from "@/components/support/support-page";
 import { Ruler, Shirt, Footprints, Info } from "lucide-react";
 
 const tips = [

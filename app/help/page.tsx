@@ -1,4 +1,4 @@
-import SupportPage from "@/components/support/SupportPage";
+import SupportPage from "@/components/support/support-page";
 import {
   ArrowUpRight,
   CircleHelp,

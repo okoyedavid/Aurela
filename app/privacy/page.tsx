@@ -1,4 +1,4 @@
-import LegalDocument from "@/components/legal/LegalDocument";
+import LegalDocument from "@/components/legal/legal-document";
 export default function PrivacyPage() { return <LegalDocument eyebrow="Data and trust" title="Privacy policy" summary="A general description of how Aurela expects to collect, use, disclose and protect personal information." sections={[
   { title: "Information collected", items: ["Account and contact details.", "Addresses, orders, returns and customer-support communications.", "Payment references supplied by payment providers, not raw card details where tokenization is used.", "Device, security, cookie and usage information.", "Seller identity, business and payout information where applicable."] },
   { title: "How information is used", items: ["Provide accounts, carts, orders, delivery and support.", "Prevent fraud and secure the marketplace.", "Meet legal, tax, accounting and regulatory obligations.", "Improve products and measure performance with appropriate consent.", "Send marketing only where permitted and allow opt-out."] },

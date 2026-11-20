@@ -1,5 +1,5 @@
 "use client";
-import SupportPage from "@/components/support/SupportPage";
+import SupportPage from "@/components/support/support-page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Check, PackageOpen } from "lucide-react";

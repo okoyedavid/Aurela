@@ -1,21 +1,13 @@
-"use client";
-// pages/scroll-feed.tsx
-import { store } from "@/store/store"; // adjust path
-import Head from "next/head";
-import { Provider } from "react-redux";
-import VerticalProductFeed from "./VerticalProductFeed";
-import Navbar from "@/components/navBar";
+import type { Metadata } from "next";
+import ReelsExperience from "@/features/reels/components/reels-experience";
+
+export const metadata: Metadata = {
+  title: "Discover | Aurela",
+  description: "Explore the Aurela collection through shoppable reels and the 3D runway.",
+};
 
 export default function ScrollFeedPage() {
   return (
-    <Provider store={store}>
-      <Head>
-        <title>Discover — Scroll Feed</title>
-      </Head>
-      <Navbar />
-      <main className="min-h-[calc(100dvh-60px)]">
-        <VerticalProductFeed />
-      </main>
-    </Provider>
+    <ReelsExperience />
   );
 }

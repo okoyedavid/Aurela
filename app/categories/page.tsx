@@ -1,7 +1,7 @@
 "use client";
 
-import { categories } from "@/data/products";
-import { selectAllProducts } from "@/features/products/productsSlice";
+import { categories } from "@/data/catalog/products";
+import { selectAllProducts } from "@/features/products/products-slice";
 import { ArrowRight, ArrowUpRight, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";

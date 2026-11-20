@@ -1,4 +1,4 @@
-import SupportPage from "@/components/support/SupportPage";
+import SupportPage from "@/components/support/support-page";
 import { PackageCheck, Plane, RotateCcw, Truck } from "lucide-react";
 
 const stages = [

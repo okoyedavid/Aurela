@@ -1,7 +1,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import AuthHeroImage from "@/components/auth/AuthHeroImage";
-import GoogleAuthButton from "@/components/auth/GoogleAuthButton";
+import AuthHeroImage from "@/components/auth/auth-hero-image";
+import GoogleAuthButton from "@/components/auth/google-auth-button";
 
 export default function SignupPage() {
   return (

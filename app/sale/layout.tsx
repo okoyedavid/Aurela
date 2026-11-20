@@ -1,3 +1,3 @@
-import Navbar from "@/components/navBar";
-import Footer from "@/components/navigation/Footer";
+import Navbar from "@/components/navigation/navbar";
+import Footer from "@/components/navigation/site-footer";
 export default function SaleLayout({ children }: { children: React.ReactNode }) { return <><Navbar />{children}<Footer /></>; }

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "woman-tailored",
+    "source": "https://www.innerscene.com/tools/library/3d-parts/harper-3d-person-woman-business-suit-standing-9fde7f08",
+    "author": "Innerscene, adapted from MakeHuman CC0 assets",
+    "license": "CC0-1.0",
+    "bytes": 563024,
+    "triangles": 20827,
+    "textures": 9
+  },
+  {
+    "id": "man-casual",
+    "source": "https://www.innerscene.com/tools/library/3d-parts/hands-behind-back-3d-person-standing-26683679",
+    "author": "Innerscene, adapted from MakeHuman CC0 assets",
+    "license": "CC0-1.0",
+    "bytes": 723892,
+    "triangles": 42676,
+    "textures": 11
+  },
+  {
+    "id": "woman-gown",
+    "source": "https://www.innerscene.com/tools/library/3d-parts/riley-3d-person-woman-standing-8d40398f",
+    "author": "Innerscene, adapted from MakeHuman CC0 assets",
+    "license": "CC0-1.0",
+    "bytes": 409092,
+    "triangles": 22906,
+    "textures": 7
+  }
+]

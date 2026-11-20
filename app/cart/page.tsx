@@ -1,6 +1,6 @@
 "use client";
-import { CartItem } from "@/components/cart/CartItem";
-import { EmptyCart } from "@/components/cart/EmptyCart";
+import { CartItem } from "@/components/cart/cart-item";
+import { EmptyCart } from "@/components/cart/empty-cart";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -13,7 +13,7 @@ import {
   selectCartSubtotal,
   selectDiscountAmount,
   updateItemCount,
-} from "@/features/Cart/cartSlice";
+} from "@/features/cart/cart-slice";
 import { PromoCode } from "@/types/cart";
 import { ArrowRight, Tag } from "lucide-react";
 import Link from "next/link";

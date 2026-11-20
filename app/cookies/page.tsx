@@ -1,5 +1,5 @@
-import LegalDocument from "@/components/legal/LegalDocument";
-import CookiePreferences from "@/components/legal/CookiePreferences";
+import LegalDocument from "@/components/legal/legal-document";
+import CookiePreferences from "@/components/legal/cookie-preferences";
 export default function CookiesPage() {
   return (
     <LegalDocument

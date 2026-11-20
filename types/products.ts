@@ -4,6 +4,8 @@ export type ProductVariantProps = {
   type: string;
   value: string;
   available: boolean;
+  /** Optional swatch value for descriptive names such as "Dusty Rose". */
+  colorHex?: string;
 };
 
 export type ProductSpecifications = {

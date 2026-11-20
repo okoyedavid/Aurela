@@ -8,7 +8,7 @@ import {
   selectAllCart,
   selectCartSubtotal,
   selectDiscountAmount,
-} from "@/features/Cart/cartSlice";
+} from "@/features/cart/cart-slice";
 import {
   ArrowLeft,
   ArrowRight,

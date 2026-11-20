@@ -1,4 +1,4 @@
-import LegalDocument from "@/components/legal/LegalDocument";
+import LegalDocument from "@/components/legal/legal-document";
 export default function AccessibilityPage() {
   return (
     <LegalDocument

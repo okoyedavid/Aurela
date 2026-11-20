@@ -1,4 +1,4 @@
-import LegalDocument from "@/components/legal/LegalDocument";
+import LegalDocument from "@/components/legal/legal-document";
 export default function SellerTermsPage() { return <LegalDocument eyebrow="Marketplace agreement" title="Seller terms" summary="The baseline responsibilities for approved sellers listing products through Aurela’s shared marketplace." sections={[
   { title: "Eligibility and verification", paragraphs: ["Sellers must provide accurate identity, business, tax and payout information, maintain required licences and promptly report material changes. Aurela may verify, reject, suspend or re-verify sellers."] },
   { title: "Listings and inventory", items: ["Listings must accurately describe the product, seller, price, condition, materials and fulfilment terms.", "Sellers must own or be authorised to sell each product and its media.", "Inventory must be accurate and reservations or accepted orders must be honoured.", "Prohibited, unsafe, counterfeit or infringing items may not be listed."] },

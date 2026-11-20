@@ -1,4 +1,4 @@
-import AuthStatusShell from "@/components/auth/AuthStatusShell";
+import AuthStatusShell from "@/components/auth/auth-status-shell";
 import { Button } from "@/components/ui/button";
 import { AlertCircle } from "lucide-react";
 import Link from "next/link";

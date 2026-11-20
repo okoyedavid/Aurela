@@ -1,6 +1,6 @@
 "use client";
 
-import ThemeToggle from "@/components/dashboard/ThemeToggle";
+import ThemeToggle from "@/components/dashboard/theme-toggle";
 import { Bell, KeyRound, LogOut, Mail, Palette, Save } from "lucide-react";
 import Link from "./logout-dialog";
 

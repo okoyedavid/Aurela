@@ -1,4 +1,4 @@
-import LegalDocument from "@/components/legal/LegalDocument";
+import LegalDocument from "@/components/legal/legal-document";
 export default function TermsPage() { return <LegalDocument eyebrow="Customer agreement" title="Terms of service" summary="The general rules for accessing Aurela, purchasing marketplace products and using customer accounts." sections={[
   { title: "Using Aurela", paragraphs: ["You must provide accurate information, protect your account credentials and use the platform only for lawful purposes. Access may be limited when necessary to protect customers, sellers or the marketplace."] },
   { title: "Marketplace relationship", paragraphs: ["Aurela provides a shared marketplace where approved sellers list products. The identity of the responsible seller should be shown with each listing and order. Aurela may provide payment, support and dispute tools without becoming the manufacturer of every product."] },

@@ -1,4 +1,4 @@
-import SupportPage from "@/components/support/SupportPage";
+import SupportPage from "@/components/support/support-page";
 
 const groups = [
   { title: "Shopping with Aurela", questions: [["What is Aurela?", "Aurela is one shared marketplace where approved sellers publish products into a central catalog. Sellers manage fulfilment, while customers discover and purchase through Aurela."], ["How do I know who sells a product?", "The responsible seller and relevant product information should appear on each product page and order record."], ["Can an item sell out after I add it to my bag?", "Yes. A bag does not permanently reserve inventory. Availability and price must be validated again when checkout is submitted."]] },

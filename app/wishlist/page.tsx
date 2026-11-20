@@ -1,13 +1,13 @@
 "use client";
 
-import ProductCard from "@/components/products/ProductCard";
+import ProductCard from "@/components/products/product-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { selectAllProducts } from "@/features/products/productsSlice";
+import { selectAllProducts } from "@/features/products/products-slice";
 import {
   selectWishlistIds,
   wishlistCleared,
-} from "@/features/Wishlist/wishlistSlice";
+} from "@/features/wishlist/wishlist-slice";
 import { Heart, Search, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";

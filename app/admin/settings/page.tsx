@@ -1,6 +1,6 @@
 "use client";
 
-import ThemeToggle from "@/components/dashboard/ThemeToggle";
+import ThemeToggle from "@/components/dashboard/theme-toggle";
 import { Calculator, KeyRound, PackageCheck, Save, ShieldCheck, SlidersHorizontal, Truck } from "lucide-react";
 import { useState } from "react";
 

@@ -1,4 +1,4 @@
-import DashboardThemeProvider from "@/components/dashboard/DashboardThemeProvider";
+import DashboardThemeProvider from "@/components/dashboard/dashboard-theme-provider";
 import AdminDashboardLayout from "./_components/admin-dashboard-layout";
 
 export default function AdminLayout({

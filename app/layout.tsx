@@ -1,10 +1,10 @@
 import { Toaster } from "@/components/ui/toast";
-import Provider from "@/contexts/Providers";
+import Provider from "@/contexts/app-providers";
 import type { Metadata } from "next";
 import { Manrope, Space_Grotesk } from "next/font/google";
 import "./animations.css";
 import "./globals.css";
-import DashboardThemeProvider from "@/components/dashboard/DashboardThemeProvider";
+import DashboardThemeProvider from "@/components/dashboard/dashboard-theme-provider";
 
 const playfair = Space_Grotesk({
   variable: "--font-playfair",
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} antialiased`}>
         <Provider>
           <DashboardThemeProvider>

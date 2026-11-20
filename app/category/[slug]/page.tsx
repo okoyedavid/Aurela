@@ -1,10 +1,10 @@
-import ProductListing from "@/components/products/ProductListing";
+import ProductListing from "@/components/products/product-listing";
 import { Button } from "@/components/ui/button";
-import { categories } from "@/data/products";
+import { categories } from "@/data/catalog/products";
 import { ArrowLeft, Package } from "lucide-react";
 import Link from "next/link";
-import Subcategories from "./Subcategories";
-import CategoryHeader from "./CategoryHeader";
+import Subcategories from "./subcategory-list";
+import CategoryHeader from "./category-header";
 
 const HomePage = async ({
   params,

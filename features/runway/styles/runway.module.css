@@ -1,0 +1,184 @@
+/* Discover / shoppable perspective runway */
+.runway-page { --background: #fcfdfb; --foreground: #252d29; --muted: #f0f2ef; --muted-foreground: #69726e; --primary: #252d29; --primary-foreground: #fcfdfb; --accent: #e8ece7; --accent-foreground: #252d29; --border: #e0e5df; --input: #e0e5df; --runway-ground: #edf0ef; --runway-ink: #252d29; --runway-quiet: #69726e; background: var(--background); color: var(--foreground); }
+.runway-toolbar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; min-height: 70px; padding: 10px 3.2%; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.runway-breadcrumb { display: flex; align-items: center; gap: 10px; font-size: 10px; color: var(--muted-foreground); }
+.runway-breadcrumb svg { width: 10px; height: 10px; }
+.runway-breadcrumb > span { color: var(--foreground); }
+.runway-toolbar-note { justify-self: end; font-size: 10px; letter-spacing: .03em; color: var(--muted-foreground); }
+.runway-experience { display: grid; grid-template-columns: minmax(0, 1fr) 306px; height: calc(100svh - 171px); min-height: 540px; max-height: 1100px; }
+.runway-world { position: relative; display: flex; flex-direction: column; overflow: hidden; color: var(--runway-ink); background: radial-gradient(ellipse at 64% 42%, #fafcfa 0%, #f1f4f2 38%, var(--runway-ground) 78%); }
+.runway-intro { position: absolute; z-index: 8; top: 35px; left: 4.2%; pointer-events: none; }
+.runway-eyebrow { display: flex; align-items: center; gap: 8px; font-size: 9px; font-weight: 600; letter-spacing: .15em; }
+.runway-intro .runway-eyebrow > span { width: 5px; height: 5px; border-radius: 50%; background: #6b7f70; }
+.runway-intro h1 { margin-top: 14px; font-size: clamp(19px, 2.1vw, 29px); font-weight: 400; letter-spacing: -.055em; line-height: 1.2; }
+.runway-intro > p:last-child { margin-top: 9px; font-size: 11px; color: var(--runway-quiet); }
+.runway-stage { position: relative; flex: 1; min-height: 0; overflow: hidden; touch-action: none; outline-offset: -5px; }
+.runway-stage:focus-visible { outline: 1px solid var(--runway-quiet); }
+.runway-watermark { position: absolute; top: 25%; left: 10%; font-family: var(--font-playfair); font-size: clamp(90px, 17vw, 270px); letter-spacing: -.08em; color: #dce3de; opacity: .24; user-select: none; pointer-events: none; }
+.runway-horizon { position: absolute; inset: 45% -20% -20%; opacity: .32; background: radial-gradient(ellipse at 66% 70%, #cdd7cf 0%, transparent 54%); transform: skewY(-5deg); pointer-events: none; }
+.runway-cast { position: absolute; inset: 12% 0 5%; isolation: isolate; }
+.runway-webgl { position: absolute; inset: 0; pointer-events: none; }
+.runway-webgl canvas { display: block; width: 100%; height: 100%; }
+.runway-cast.has-webgl .runway-model-placeholder { visibility: hidden; }
+.runway-preview-unavailable { position: absolute; left: 4.2%; right: 4.2%; bottom: 5px; font-size: 9px; color: var(--runway-quiet); }
+.runway-model { position: absolute; bottom: 0; height: 100%; aspect-ratio: 1 / 2; border: 0; padding: 0; background: transparent; transform-origin: center 85%; transition: left 850ms cubic-bezier(.22,.8,.25,1), transform 850ms cubic-bezier(.22,.8,.25,1), filter 850ms ease, opacity 850ms ease; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.runway-model.is-current { cursor: pointer; }
+.runway-model:focus-visible { outline: 1px dashed var(--runway-quiet); outline-offset: 8px; border-radius: 45%; }
+.runway-model-placeholder { position: absolute; inset: 0; display: grid; place-items: center; opacity: .12; }
+.runway-model-placeholder svg { width: 70%; height: 70%; stroke-width: .6; }
+.runway-expand-hint { position: absolute; left: 50%; bottom: 0; display: flex; align-items: center; gap: 7px; width: max-content; padding: 9px 13px; border: 1px solid var(--border); border-radius: 99px; background: var(--background); font-size: 9px; transform: translateX(-50%); opacity: 0; transition: opacity .2s; }
+.runway-expand-hint svg { width: 12px; height: 12px; }
+.runway-model.is-current .runway-expand-hint, .runway-model:hover .runway-expand-hint, .runway-model:focus-visible .runway-expand-hint { opacity: 1; }
+.runway-open-editor { margin-left: 20px; }
+.runway-editor[data-slot=dialog-content] { inset: 0; left: 0; top: 0; width: 100vw; max-width: none; height: 100dvh; max-height: none; transform: none; translate: none; border: 0; border-radius: 0; padding: 0; gap: 0; display: grid; grid-template-rows: 82px minmax(0, 1fr); animation: none; }
+.character-editor-header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 4%; border-bottom: 1px solid var(--border); }
+.character-editor-header [data-slot=dialog-title] { margin-top: 7px; font-size: 20px; font-weight: 400; letter-spacing: -.04em; }
+.character-editor-header .runway-eyebrow { font-size: 8px; }
+.character-editor-body { display: grid; grid-template-columns: minmax(0, 1fr) 330px; min-height: 0; }
+.character-editor-stage { position: relative; min-width: 0; min-height: 0; background: radial-gradient(ellipse at 50% 40%, #fafcf9, #e8ede7); }
+.character-studio-wordmark { position: absolute; top: 35%; left: 50%; transform: translateX(-50%); color: #d7dfd3; opacity: .35; font-size: clamp(50px, 10vw, 180px); letter-spacing: -.08em; pointer-events: none; }
+.character-canvas { position: absolute; inset: 0 0 64px; touch-action: none; outline-offset: -5px; }
+.character-canvas canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.character-canvas canvas:active { cursor: grabbing; }
+.character-view-controls { position: absolute; bottom: 14px; left: 50%; display: flex; align-items: center; justify-content: center; gap: 6px; width: max-content; max-width: 100%; padding: 6px; border-radius: 16px; background: var(--background); transform: translateX(-50%); }
+.character-control-divider { height: 20px; width: 1px; margin-inline: 4px; background: var(--border); }
+.character-editor-status { position: absolute; inset: 0 0 64px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; font-size: 13px; color: var(--muted-foreground); }
+.character-editor-status > svg { width: 24px; height: 24px; }
+.character-editor-details { display: flex; flex-direction: column; gap: 28px; padding: 34px 28px; border-left: 1px solid var(--border); overflow-y: auto; }
+.character-editor-details h2 { margin-top: 14px; font-size: 28px; font-weight: 400; line-height: 1.2; letter-spacing: -.05em; }
+.character-editor-price { margin-top: 12px; font-size: 15px; }
+.character-editor-details [data-slot=dialog-description] { line-height: 1.8; font-size: 12px; }
+.character-editor-details .runway-colors { margin-top: 0; gap: 14px; }
+.character-editor-details .runway-colors > p { font-size: 12px; }
+.character-editor-details .runway-colors small { font-size: 10px; }
+.character-model-note { font-size: 11px; line-height: 1.8; color: var(--muted-foreground); }
+.character-editor-footnote { display: flex; align-items: center; gap: 8px; margin-top: auto; font-size: 10px; color: var(--muted-foreground); }
+.character-editor-footnote svg { width: 14px; height: 14px; }
+@media (max-width: 760px) {
+  .runway-editor[data-slot=dialog-content] { grid-template-rows: 72px minmax(0, 1fr); }
+  .character-editor-body { display: flex; flex-direction: column; overflow-y: auto; }
+  .character-editor-stage { flex: 0 0 54dvh; min-height: 360px; }
+  .character-editor-details { overflow: visible; border-left: 0; border-top: 1px solid var(--border); padding: 24px; gap: 20px; }
+  .character-view-controls { gap: 3px; border-radius: 12px; }
+  .character-view-controls button { min-width: 32px; padding-inline: 9px; }
+  .character-control-divider { margin-inline: 2px; }
+  .character-editor-details h2 { font-size: 25px; }
+  .character-editor-footnote { margin-top: 0; }
+  .runway-open-editor { margin-left: 14px; }
+}
+.runway-stage-label { position: absolute; left: 4.2%; bottom: 27px; writing-mode: vertical-rl; transform: rotate(180deg); color: var(--runway-quiet); font-size: 8px; letter-spacing: .2em; }
+.runway-scroll-cue { position: absolute; right: 4.2%; bottom: 26px; display: flex; align-items: center; gap: 8px; color: var(--runway-quiet); }
+.runway-scroll-cue svg { width: 13px; height: 13px; }
+.runway-scroll-cue svg:last-child { width: 10px; height: 10px; }
+.runway-scroll-cue span { font-size: 7px; letter-spacing: .15em; }
+.runway-look-footer { position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; min-height: 154px; padding: 16px 4.2% 30px; }
+.runway-look-copy .runway-eyebrow { text-transform: uppercase; color: var(--runway-quiet); font-size: 8px; letter-spacing: .12em; }
+.runway-copy-divider { margin-inline: 5px; opacity: .5; }
+.runway-look-copy h2 { margin-top: 9px; font-size: 30px; font-weight: 400; letter-spacing: -.05em; line-height: 1.15; }
+.runway-look-copy > p:not(.runway-eyebrow) { margin-top: 7px; font-size: 10px; color: var(--runway-quiet); }
+.runway-shop-link { display: inline-flex; align-items: center; gap: 12px; padding-block: 9px 3px; margin-top: 7px; border-bottom: 1px solid #a6b0a8; font-size: 10px; font-weight: 600; cursor: pointer; }
+.runway-shop-link svg { width: 12px; height: 12px; }
+.runway-pagination { width: 156px; padding-bottom: 5px; }
+.runway-arrow-controls { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.runway-arrow-controls > span { white-space: nowrap; font-size: 10px; }
+.runway-arrow-controls > span > span { color: var(--runway-quiet); }
+.runway-progress { display: flex; gap: 5px; margin-top: 13px; }
+.runway-progress button { display: flex; align-items: center; width: 25%; height: 16px; cursor: pointer; }
+.runway-progress button span { width: 100%; height: 2px; background: #cbd3ce; transition: background .3s; }
+.runway-progress button .is-active { background: var(--runway-ink); }
+.runway-shop { display: flex; flex-direction: column; min-height: 0; border-left: 1px solid var(--border); background: var(--background); outline-offset: -3px; }
+.runway-shop-heading { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 27px 23px 20px; }
+.runway-shop-heading .runway-eyebrow { color: var(--muted-foreground); font-size: 7px; letter-spacing: .11em; }
+.runway-shop-heading h2 { margin-top: 9px; font-size: 22px; font-weight: 400; letter-spacing: -.05em; }
+.runway-shop-heading > svg { width: 18px; height: 18px; stroke-width: 1.3; }
+.runway-shop-caption { display: flex; justify-content: space-between; gap: 10px; padding: 0 23px 17px; border-bottom: 1px solid var(--border); font-size: 8px; letter-spacing: .08em; }
+.runway-shop-caption > span:last-child { color: var(--muted-foreground); letter-spacing: 0; }
+.runway-products { flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--border) transparent; animation: runway-products-in .4s ease both; }
+.runway-product { border-bottom: 1px solid var(--border); padding: 15px 20px 19px; }
+.runway-product-visual { position: relative; height: 177px; background: var(--muted); overflow: hidden; }
+.runway-product-visual > a { position: absolute; inset: 13px 20px; }
+.runway-product-visual img { transition: transform .4s; }
+.runway-product-visual > a:hover img { transform: scale(1.04); }
+.runway-save { position: absolute; top: 5px; left: 4px; }
+.runway-product-number { position: absolute; bottom: 11px; right: 11px; color: var(--muted-foreground); font-size: 8px; }
+.runway-product-info { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 14px; }
+.runway-product-info > div { display: flex; flex-direction: column; gap: 6px; }
+.runway-product-info p { font-size: 7px; letter-spacing: .15em; color: var(--muted-foreground); }
+.runway-product-info a { font-size: 11px; line-height: 1.45; }
+.runway-product-info a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.runway-product-info span { font-size: 10px; color: var(--muted-foreground); }
+.runway-colors { display: flex; flex-direction: column; gap: 9px; margin-top: 15px; }
+.runway-colors > p { display: flex; justify-content: space-between; gap: 8px; font-size: 9px; }
+.runway-colors > p span { color: var(--muted-foreground); }
+.runway-colors small { color: var(--muted-foreground); font-size: 8px; }
+.runway-swatches { display: flex; flex-wrap: wrap; gap: 4px; }
+.runway-swatch { position: relative; display: grid; place-items: center; width: 36px; height: 36px; cursor: pointer; }
+.runway-swatch-input[data-slot] { position: absolute; inset: 1px; width: 34px; height: 34px; }
+.runway-swatch-input[data-state=checked] { border-color: var(--foreground); border-width: 2px; }
+.runway-swatch-input > span { display: none; }
+.runway-swatch > span { position: relative; width: 24px; height: 24px; border: 1px solid #8884; border-radius: 50%; pointer-events: none; }
+.runway-swatch.is-unavailable { cursor: not-allowed; opacity: .4; }
+.runway-swatch.is-unavailable > span::after { position: absolute; top: 10px; left: -3px; width: 28px; height: 1px; background: var(--foreground); transform: rotate(-45deg); content: ""; }
+.runway-collection-link { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 57px; padding: 15px 23px; border-top: 1px solid var(--border); font-size: 10px; }
+.runway-collection-link svg { width: 13px; height: 13px; }
+.runway-bottom-bar { display: flex; justify-content: space-between; align-items: center; gap: 20px; min-height: 41px; padding: 10px 3.2%; border-top: 1px solid var(--border); color: var(--muted-foreground); font-size: 9px; }
+.runway-bottom-bar a { display: flex; align-items: center; gap: 10px; }
+.runway-bottom-bar svg { width: 11px; height: 11px; }
+@keyframes runway-products-in { from { opacity: .3; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@media (min-width: 1500px) {
+  .runway-experience { grid-template-columns: minmax(0, 1fr) 355px; }
+  .runway-product-visual { height: 215px; }
+  .runway-cast { top: 20%; }
+}
+@media (max-width: 1023px) {
+  .runway-experience { grid-template-columns: minmax(0, 1fr) 265px; }
+  .runway-intro h1 { font-size: 22px; }
+  .runway-model { max-height: 440px; }
+  .runway-toolbar-note { display: none; }
+  .runway-toolbar { grid-template-columns: 1fr auto; }
+  .runway-look-copy h2 { font-size: 25px; }
+  .runway-look-copy > p:not(.runway-eyebrow) { max-width: 190px; line-height: 1.6; }
+  .runway-pagination { width: 135px; }
+  .runway-arrow-controls { gap: 8px; }
+  .runway-scroll-cue span { display: none; }
+  .runway-product-visual { height: 155px; }
+}
+@media (max-width: 760px) {
+  .runway-toolbar { min-height: 62px; padding: 9px 18px; gap: 9px; }
+  .runway-breadcrumb { gap: 5px; font-size: 9px; }
+  .runway-breadcrumb > a:first-child, .runway-breadcrumb > svg:first-of-type { display: none; }
+  .runway-experience { display: flex; flex-direction: column; height: auto; max-height: none; min-height: 0; }
+  .runway-world { height: calc(100svh - 120px); min-height: 580px; max-height: 850px; }
+  .runway-intro { top: 26px; left: 6%; }
+  .runway-intro .runway-eyebrow { font-size: 7px; letter-spacing: .12em; }
+  .runway-intro h1 { font-size: 26px; margin-top: 11px; }
+  .runway-intro > p:last-child { font-size: 10px; }
+  .runway-cast { inset: 26% 0 5%; }
+  .runway-model { max-height: none; }
+  .runway-watermark { top: 34%; left: 4%; font-size: 25vw; }
+  .runway-stage-label { left: 6%; bottom: 17px; font-size: 6px; }
+  .runway-scroll-cue { right: 6%; bottom: 18px; }
+  .runway-look-footer { padding: 14px 6% 23px; min-height: 150px; gap: 12px; }
+  .runway-look-copy .runway-eyebrow { font-size: 6px; letter-spacing: .08em; gap: 4px; }
+  .runway-copy-divider { margin-inline: 2px; }
+  .runway-look-copy h2 { font-size: 25px; }
+  .runway-look-copy > p:not(.runway-eyebrow) { font-size: 9px; }
+  .runway-pagination { width: 126px; flex-shrink: 0; }
+  .runway-shop { border-left: 0; border-top: 1px solid var(--border); }
+  .runway-shop-heading { padding: 25px 6% 16px; }
+  .runway-shop-caption { padding-inline: 6%; }
+  .runway-products { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); overflow: visible; padding: 17px 5%; gap: 10px; }
+  .runway-product { padding: 0 0 12px; border-bottom: 0; }
+  .runway-product-visual { height: 155px; }
+  .runway-product-visual > a { inset: 12px 7px; }
+  .runway-save { top: 1px; left: 0; }
+  .runway-product-info { align-items: flex-start; flex-direction: column; gap: 10px; margin-top: 12px; }
+  .runway-product-info > div { gap: 5px; }
+  .runway-product-info a { font-size: 10px; min-height: 29px; }
+  .runway-product-info p { font-size: 6px; }
+  .runway-collection-link { padding-inline: 6%; }
+  .runway-bottom-bar { padding-inline: 6%; font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .runway-page *, .runway-page *::before, .runway-page *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

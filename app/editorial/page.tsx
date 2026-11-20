@@ -1,4 +1,4 @@
-import PublicPageShell from "@/components/PublicPageShell";
+import PublicPageShell from "@/components/layout/public-page-shell";
 import { editorials } from "@/data/editorials";
 import { ArrowRight, Play } from "lucide-react";
 import Image from "next/image";

@@ -1,7 +1,7 @@
-import { selectHotDrops } from "@/features/products/productsSlice";
+import { selectHotDrops } from "@/features/products/products-slice";
 import { RootState } from "@/store/store";
 import { useSelector } from "react-redux";
-import ProductCard from "../products/ProductCard";
+import ProductCard from "../products/product-card";
 
 export default function NewDrops() {
   const products = useSelector((state: RootState) => selectHotDrops(state, 8));
